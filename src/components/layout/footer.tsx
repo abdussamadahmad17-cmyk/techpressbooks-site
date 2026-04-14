@@ -7,17 +7,29 @@ interface FooterProps {
   siteSettings: SiteSettings
 }
 
-export default function Footer({ siteSettings }: FooterProps) {
-  const navigation =
-    siteSettings.navigation.length > 0
-      ? siteSettings.navigation
-      : [
-          { label: "Home", href: "/" },
-          { label: "Books", href: "/books" },
-          { label: "Blog", href: "/blog" },
-          { label: "Categories", href: "/categories" }
-        ]
+const footerSections = {
+  explore: [
+    { label: "Books", href: "/books" },
+    { label: "Blog", href: "/blog" },
+    { label: "Categories", href: "/categories" },
+    { label: "Tags", href: "/tags" },
+    { label: "Authors", href: "/authors" }
+  ],
+  contributors: [
+    { label: "Become an Author", href: "/become-an-author" },
+    { label: "Meet the Authors", href: "/authors" }
+  ],
+  company: [
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" }
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" }
+  ]
+}
 
+export default function Footer({ siteSettings }: FooterProps) {
   return (
     <footer className="border-t border-white/10 bg-slate-950">
       <Container className="py-12">
@@ -31,23 +43,26 @@ export default function Footer({ siteSettings }: FooterProps) {
                 Practical technical publishing for modern engineers
               </h2>
               <p className="text-sm leading-7 text-slate-400">
-                Browse books, read technical articles, and explore the library by
-                category or topic.
+                Browse books, read technical articles, explore authors, and
+                discover content by topic and category.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <Button href="/books" variant="primary">
-                Browse books
+                Browse Books
               </Button>
               <Button href="/blog" variant="secondary">
-                Read the blog
+                Read the Blog
+              </Button>
+              <Button href="/become-an-author" variant="secondary">
+                Become an Author
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2 md:items-start">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
               {siteSettings.siteTitle}
@@ -57,31 +72,48 @@ export default function Footer({ siteSettings }: FooterProps) {
             </p>
           </div>
 
-          <div className="md:justify-self-end">
-            <p className="mb-4 text-xs uppercase tracking-[0.2em] text-red-400">
-              Navigation
-            </p>
-            <nav className="flex flex-col gap-3">
-              {navigation.map((item) => (
-                <Link
-                  key={`${item.label}-${item.href}-footer`}
-                  href={item.href}
-                  className="text-sm text-slate-300 transition hover:text-white"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <FooterColumn title="Explore" links={footerSections.explore} />
+          <FooterColumn title="Contributors" links={footerSections.contributors} />
+          <FooterColumn title="Company" links={footerSections.company} />
+          <FooterColumn title="Legal" links={footerSections.legal} />
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6">
           <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} {siteSettings.siteTitle}. All rights
-            reserved.
+            © {new Date().getFullYear()} {siteSettings.siteTitle}. All rights reserved.
           </p>
         </div>
       </Container>
     </footer>
+  )
+}
+
+interface FooterColumnProps {
+  title: string
+  links: Array<{
+    label: string
+    href: string
+  }>
+}
+
+function FooterColumn({ title, links }: FooterColumnProps) {
+  return (
+    <div>
+      <p className="mb-4 text-xs uppercase tracking-[0.2em] text-red-400">
+        {title}
+      </p>
+
+      <nav className="flex flex-col gap-3">
+        {links.map((item) => (
+          <Link
+            key={`${title}-${item.label}-${item.href}`}
+            href={item.href}
+            className="text-sm text-slate-300 transition hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+    </div>
   )
 }
