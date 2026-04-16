@@ -6,7 +6,7 @@ import PortableTextRenderer from "@/components/portable-text/portable-text-rende
 import { getAllPostSlugs, getPostBySlug } from "@/features/posts/service"
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params
+  const { slug } = await params
   const post = await getPostBySlug(slug)
 
   if (!post) {
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = params
+  const { slug } = await params
   const post = await getPostBySlug(slug)
 
   if (!post) {
