@@ -36,16 +36,16 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
 
       <Container className="relative">
         <div className="max-w-3xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-slate-200/70 bg-slate-50 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300">
             Premium Technical Publishing
           </div>
 
           <div className="space-y-6">
-            <h1 className="text-5xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+            <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.05]">
               Engineering knowledge for the real world.
             </h1>
 
-            <p className="max-w-2xl text-lg leading-8 text-slate-700 dark:text-slate-300 sm:text-xl">
+            <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
               {siteDescription}
             </p>
           </div>

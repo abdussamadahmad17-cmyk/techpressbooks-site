@@ -53,11 +53,11 @@ export default function SectionCta({
               </p>
             ) : null}
 
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
               {title}
             </h2>
 
-            <p className="text-base leading-8 text-slate-700 dark:text-slate-300">
+            <p className="text-base leading-8 text-slate-300">
               {description}
             </p>
 

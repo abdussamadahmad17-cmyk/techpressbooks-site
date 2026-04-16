@@ -141,7 +141,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
                 updateFilters({ query: event.target.value })
               }
               placeholder="Search by title, author, category, or tag"
-              className="w-full rounded-2xl border border-slate-200/70 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-red-500 dark:border-white/10 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500"
+              className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-red-500"
             />
           </div>
 
@@ -226,9 +226,9 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-slate-600 dark:text-slate-400">
-          Showing <span className="font-medium text-slate-900 dark:text-white">{filteredBooks.length}</span>{" "}
-          of <span className="font-medium text-slate-900 dark:text-white">{books.length}</span> books
+        <p className="text-sm text-slate-400">
+          Showing <span className="font-medium text-white">{filteredBooks.length}</span>{" "}
+          of <span className="font-medium text-white">{books.length}</span> books
           {isPending ? (
             <span className="ml-2 text-slate-500">Updating…</span>
           ) : null}

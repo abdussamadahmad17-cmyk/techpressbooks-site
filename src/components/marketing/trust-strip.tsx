@@ -19,8 +19,8 @@ export default function TrustStrip({ items }: TrustStripProps) {
               key={item.title}
               className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur"
             >
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">
+              <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-400">
                 {item.description}
               </p>
             </div>

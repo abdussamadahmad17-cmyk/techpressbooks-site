@@ -86,7 +86,7 @@ export default function BookCard({ book }: BookCardProps) {
                 <Link
                   key={tag}
                   href={`/tags/${slugifyBookTag(tag)}`}
-                  className="rounded-full border border-slate-200/70 bg-slate-50 px-2.5 py-1 text-[11px] text-slate-700 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-white"
+                  className="rounded-full border border-slate-200/50 bg-slate-50 px-2.5 py-1 text-[11px] text-slate-600 transition hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:text-white"
                 >
                   {tag}
                 </Link>

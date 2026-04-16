@@ -66,7 +66,7 @@ export default async function HomePage() {
 
             <Link
               href="/books"
-              className="text-sm font-medium text-slate-300 transition hover:text-white"
+              className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             >
               View all books →
             </Link>
@@ -93,7 +93,7 @@ export default async function HomePage() {
 
               <Link
                 href="/blog"
-                className="text-sm font-medium text-slate-300 transition hover:text-white"
+                className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
               >
                 Visit the blog →
               </Link>

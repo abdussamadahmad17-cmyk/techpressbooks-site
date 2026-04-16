@@ -40,7 +40,7 @@ export default function FeaturedBookCta({
     <section className="py-20 sm:py-24">
       <Container>
         <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-slate-100 dark:border-white/10 dark:bg-slate-800">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-800">
             <Image
               src={book.coverImage}
               alt={book.title}

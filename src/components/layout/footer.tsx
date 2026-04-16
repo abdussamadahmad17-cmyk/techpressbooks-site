@@ -40,10 +40,10 @@ export default function Footer({ siteSettings }: FooterProps) {
               <p className="text-sm uppercase tracking-[0.2em] text-red-400">
                 Explore the platform
               </p>
-              <h2 className="text-2xl font-semibold text-white">
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
                 Practical technical publishing for modern engineers
               </h2>
-              <p className="text-sm leading-7 text-slate-400">
+              <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
                 Browse books, read technical articles, explore authors, and
                 discover content by topic and category.
               </p>
@@ -109,7 +109,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
           <Link
             key={`${title}-${item.label}-${item.href}`}
             href={item.href}
-            className="text-sm text-slate-300 transition hover:text-white"
+            className="text-sm text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
           >
             {item.label}
           </Link>
