@@ -21,12 +21,12 @@ export default function PageHeader({
             </p>
           ) : null}
 
-          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">
             {title}
           </h1>
 
           {description ? (
-            <p className="max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+            <p className="max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-400 sm:text-lg">
               {description}
             </p>
           ) : null}

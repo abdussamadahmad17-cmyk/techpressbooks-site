@@ -106,8 +106,8 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                     className={cn(
                       "rounded-xl px-3 py-2 text-sm font-medium transition",
                       active
-                        ? "bg-white/10 text-white"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-slate-100 text-slate-900 dark:bg-white/10 dark:text-white"
+                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
