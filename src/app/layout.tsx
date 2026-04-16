@@ -3,6 +3,7 @@ import Script from "next/script"
 import "./globals.css"
 import Navbar from "@/components/layout/navbar"
 import Footer from "@/components/layout/footer"
+import ThemeProvider from "@/components/providers/theme-provider"
 import { PageViewTracker } from "@/components/analytics/PageViewTracker"
 import { getSiteSettings } from "@/features/site-settings/service"
 import { GA_ID } from "@/lib/analytics/gtag"
@@ -58,7 +59,7 @@ export default async function RootLayout({
   const siteSettings = await getSiteSettings()
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {GA_ID && (
           <>
@@ -81,11 +82,18 @@ export default async function RootLayout({
           </>
         )}
       </head>
-      <body className="min-h-screen bg-slate-950 text-slate-100 antialiased">
-        {GA_ID && <PageViewTracker />}
-        <Navbar siteSettings={siteSettings} />
-        <main>{children}</main>
-        <Footer siteSettings={siteSettings} />
+      <body className="min-h-screen antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {GA_ID && <PageViewTracker />}
+          <Navbar siteSettings={siteSettings} />
+          <main>{children}</main>
+          <Footer siteSettings={siteSettings} />
+        </ThemeProvider>
       </body>
     </html>
   )

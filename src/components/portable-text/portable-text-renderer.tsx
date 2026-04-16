@@ -9,30 +9,36 @@ interface PortableTextRendererProps {
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="text-base leading-8 text-slate-300">{children}</p>
+      <p className="text-base leading-8 text-slate-700 dark:text-slate-300">
+        {children}
+      </p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-10 text-2xl font-semibold tracking-tight text-white">
+      <h2 className="mt-10 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-8 text-xl font-semibold tracking-tight text-white">
+      <h3 className="mt-8 text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
         {children}
       </h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-red-500/40 pl-4 italic text-slate-300">
+      <blockquote className="border-l-4 border-red-500/40 pl-4 italic text-slate-700 dark:text-slate-300">
         {children}
       </blockquote>
     )
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc space-y-2 pl-6 text-slate-300">{children}</ul>
+      <ul className="list-disc space-y-2 pl-6 text-slate-700 dark:text-slate-300">
+        {children}
+      </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal space-y-2 pl-6 text-slate-300">{children}</ol>
+      <ol className="list-decimal space-y-2 pl-6 text-slate-700 dark:text-slate-300">
+        {children}
+      </ol>
     )
   },
   listItem: {

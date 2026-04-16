@@ -21,7 +21,8 @@ const footerSections = {
   ],
   company: [
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" }
+    { label: "Contact", href: "/contact" },
+    { label: "Settings", href: "/settings" }
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
@@ -33,7 +34,7 @@ export default function Footer({ siteSettings }: FooterProps) {
   return (
     <footer className="border-t border-white/10 bg-slate-950">
       <Container className="py-12">
-        <div className="mb-12 rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+        <div className="mb-12 rounded-4xl border border-slate-200/70 bg-white/70 p-8 backdrop-blur dark:border-white/10 dark:bg-white/5">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl space-y-3">
               <p className="text-sm uppercase tracking-[0.2em] text-red-400">

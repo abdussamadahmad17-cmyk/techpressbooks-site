@@ -1,10 +1,6 @@
-'use client';
-
 import Image from "next/image"
 import Link from "next/link"
-import { useCallback } from 'react'
 import type { Book } from "@/types/book"
-import { event } from "@/lib/analytics/gtag"
 import { slugifyBookTag } from "@/features/books/tags"
 
 function slugifyCategory(value: string): string {
@@ -23,83 +19,101 @@ interface BookCardProps {
 export default function BookCard({ book }: BookCardProps) {
   const primaryCategory = book.categories[0]
 
-  const handleBookClick = useCallback(() => {
-    event({
-      action: 'book_view',
-      category: 'engagement',
-      label: book.title
-    });
-  }, [book.title]);
-
   return (
-    <article className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20">
-      <Link href={`/books/${book.slug}`} className="block" onClick={handleBookClick}>
-        <div className="relative aspect-[3/4] overflow-hidden bg-slate-800">
+    <article className="group rounded-3xl border border-slate-200/70 bg-slate-50 p-4 transition duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
+      <div className="flex gap-4">
+        <Link
+          href={`/books/${book.slug}`}
+          className="relative block h-40 w-[110px] shrink-0 overflow-hidden rounded-xl border border-slate-200/70 bg-slate-100 dark:border-white/10 dark:bg-slate-800"
+        >
           <Image
             src={book.coverImage}
             alt={book.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            sizes="110px"
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
-        </div>
-      </Link>
+        </Link>
 
-      <div className="space-y-4 p-6">
-        <div className="space-y-2">
-          {primaryCategory ? (
-            <Link
-              href={`/categories/${slugifyCategory(primaryCategory)}`}
-              className="inline-block text-xs uppercase tracking-[0.2em] text-red-400 hover:text-red-300"
-            >
-              {primaryCategory}
-            </Link>
+        <div className="min-w-0 flex-1 space-y-3">
+          <div className="space-y-2">
+            {primaryCategory ? (
+              <Link
+                href={`/categories/${slugifyCategory(primaryCategory)}`}
+                className="inline-block text-[11px] uppercase tracking-[0.2em] text-red-400 hover:text-red-300"
+              >
+                {primaryCategory}
+              </Link>
+            ) : null}
+
+            <div className="space-y-1">
+              <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-white">
+                <Link
+                  href={`/books/${book.slug}`}
+                  className="transition hover:text-red-300"
+                >
+                  {book.title}
+                </Link>
+              </h3>
+
+              {book.subtitle ? (
+                <p className="line-clamp-2 text-sm text-slate-400">
+                  {book.subtitle}
+                </p>
+              ) : null}
+
+              {book.author ? (
+                <p className="text-sm text-slate-300">
+                  By{" "}
+                  <Link
+                    href={`/authors/${book.author.slug}`}
+                    className="transition hover:text-white"
+                  >
+                    {book.author.name}
+                  </Link>
+                </p>
+              ) : null}
+            </div>
+          </div>
+
+          <p className="line-clamp-3 text-sm leading-6 text-slate-400">
+            {book.shortDescription}
+          </p>
+
+          {book.tags.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {book.tags.slice(0, 3).map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/tags/${slugifyBookTag(tag)}`}
+                  className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 transition hover:border-white/20 hover:text-white"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
           ) : null}
 
-          <h3 className="text-xl font-semibold tracking-tight text-white">
+          <div className="flex flex-wrap gap-3 pt-1">
             <Link
               href={`/books/${book.slug}`}
-              className="transition hover:text-red-300"
+              className="inline-flex rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-500"
             >
-              {book.title}
+              View book
             </Link>
-          </h3>
 
-          {book.subtitle ? (
-            <p className="text-sm text-slate-400">{book.subtitle}</p>
-          ) : null}
-
-          {book.author ? (
-            <p className="text-sm text-slate-300">
-              By{" "}
+            {book.amazonUrl ? (
               <Link
-                href={`/authors/${book.author.slug}`}
-                className="transition hover:text-white"
+                href={book.amazonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10"
               >
-                {book.author.name}
+                Buy on Amazon
               </Link>
-            </p>
-          ) : null}
-        </div>
-
-        <p className="text-sm leading-7 text-slate-400">
-          {book.shortDescription}
-        </p>
-
-        {book.tags.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {book.tags.slice(0, 3).map((tag) => (
-              <Link
-                key={tag}
-                href={`/tags/${slugifyBookTag(tag)}`}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 transition hover:border-white/20 hover:text-white"
-              >
-                {tag}
-              </Link>
-            ))}
+            ) : null}
           </div>
-        ) : null}
+        </div>
       </div>
     </article>
   )

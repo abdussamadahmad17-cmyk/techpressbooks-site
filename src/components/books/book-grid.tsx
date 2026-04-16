@@ -17,7 +17,7 @@ export default function BookGrid({ books }: BookGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="space-y-5">
       {books.map((book) => (
         <BookCard key={book.slug} book={book} />
       ))}

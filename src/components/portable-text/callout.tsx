@@ -21,11 +21,15 @@ export default function Callout({ value }: CalloutProps) {
       className={`rounded-2xl border p-5 ${toneStyles[tone] ?? toneStyles.info}`}
     >
       {value.title ? (
-        <h3 className="text-sm font-semibold text-white">{value.title}</h3>
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+          {value.title}
+        </h3>
       ) : null}
 
       {value.body ? (
-        <p className="mt-2 text-sm leading-7 text-slate-200">{value.body}</p>
+        <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-200">
+          {value.body}
+        </p>
       ) : null}
     </div>
   )

@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+}
+
+html.dark {
   color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -11,12 +19,16 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 30%),
-    linear-gradient(to bottom, #020617, #0f172a 45%, #020617);
+    radial-gradient(circle at top, rgba(0, 0, 0, 0.03), transparent 30%),
+    linear-gradient(to bottom, #f8fafc, #e2e8f0 45%, #f8fafc);
+  color: #0f172a;
 }
 
-* {
-  box-sizing: border-box;
+html.dark body {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 30%),
+    linear-gradient(to bottom, #020617, #0f172a 45%, #020617);
+  color: #f8fafc;
 }
 
 ::selection {

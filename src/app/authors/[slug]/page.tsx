@@ -44,7 +44,7 @@ export default async function AuthorDetailPage({ params }: Props) {
       <section className="border-b border-white/10 py-16 sm:py-20">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[160px_minmax(0,1fr)] lg:items-start">
-            <div className="relative h-40 w-40 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-800">
+            <div className="relative h-40 w-40 overflow-hidden rounded-4xl border border-slate-200/70 bg-slate-100 dark:border-white/10 dark:bg-slate-800">
               {author.image ? (
                 <Image
                   src={author.image}

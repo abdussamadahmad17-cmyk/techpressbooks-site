@@ -5,6 +5,7 @@ import { useState } from "react"
 import { usePathname } from "next/navigation"
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
+import ThemeToggle from "@/components/shared/theme-toggle"
 import { cn } from "@/lib/cn"
 import type { SiteSettings } from "@/types/site-settings"
 
@@ -70,6 +71,7 @@ export default function Navbar({ siteSettings }: NavbarProps) {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <Button href="/become-an-author" variant="secondary" size="sm">
             Become an Author
           </Button>
@@ -115,6 +117,7 @@ export default function Navbar({ siteSettings }: NavbarProps) {
               })}
 
               <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4">
+                <ThemeToggle />
                 <Button href="/become-an-author" variant="secondary" size="sm">
                   Become an Author
                 </Button>
