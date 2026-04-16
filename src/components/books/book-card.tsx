@@ -20,7 +20,7 @@ export default function BookCard({ book }: BookCardProps) {
   const primaryCategory = book.categories[0]
 
   return (
-    <article className="group rounded-3xl border border-slate-200/70 bg-slate-50 p-4 transition duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
+    <article className="group rounded-3xl border border-slate-200/70 bg-white p-4 transition duration-300 hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
       <div className="flex gap-4">
         <Link
           href={`/books/${book.slug}`}
@@ -47,27 +47,27 @@ export default function BookCard({ book }: BookCardProps) {
             ) : null}
 
             <div className="space-y-1">
-              <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-white">
+              <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
                 <Link
                   href={`/books/${book.slug}`}
-                  className="transition hover:text-red-300"
+                  className="transition hover:text-red-500 dark:hover:text-red-300"
                 >
                   {book.title}
                 </Link>
               </h3>
 
               {book.subtitle ? (
-                <p className="line-clamp-2 text-sm text-slate-400">
+                <p className="line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
                   {book.subtitle}
                 </p>
               ) : null}
 
               {book.author ? (
-                <p className="text-sm text-slate-300">
+                <p className="text-sm text-slate-700 dark:text-slate-300">
                   By{" "}
                   <Link
                     href={`/authors/${book.author.slug}`}
-                    className="transition hover:text-white"
+                    className="transition hover:text-slate-900 dark:hover:text-white"
                   >
                     {book.author.name}
                   </Link>
@@ -76,7 +76,7 @@ export default function BookCard({ book }: BookCardProps) {
             </div>
           </div>
 
-          <p className="line-clamp-3 text-sm leading-6 text-slate-400">
+          <p className="line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
             {book.shortDescription}
           </p>
 

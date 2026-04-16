@@ -41,11 +41,11 @@ export default function Navbar({ siteSettings }: NavbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
       <Container className="flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-3">
           <div className="h-3 w-3 rounded-full bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.7)]" />
-          <span className="text-base font-semibold uppercase tracking-[0.18em] text-white">
+          <span className="text-base font-semibold uppercase tracking-[0.18em] text-slate-900 dark:text-white">
             {siteSettings.siteTitle}
           </span>
         </Link>
@@ -60,7 +60,7 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                 href={item.href}
                 className={cn(
                   "text-sm font-medium transition",
-                  active ? "text-white" : "text-slate-300 hover:text-white"
+                  active ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                 )}
                 aria-current={active ? "page" : undefined}
               >
@@ -83,7 +83,7 @@ export default function Navbar({ siteSettings }: NavbarProps) {
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex items-center rounded-xl border border-white/10 px-3 py-2 text-sm text-slate-200 lg:hidden"
+          className="inline-flex items-center rounded-xl border border-slate-200/70 px-3 py-2 text-sm text-slate-600 dark:border-white/10 dark:text-slate-200 lg:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
         >

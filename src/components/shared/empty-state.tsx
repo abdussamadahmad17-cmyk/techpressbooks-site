@@ -12,9 +12,9 @@ export default function EmptyState({
   action
 }: EmptyStateProps) {
   return (
-    <div className="rounded-[2rem] border border-dashed border-white/10 bg-white/5 p-10 text-center">
-      <p className="text-xl font-semibold text-white">{title}</p>
-      <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-slate-400">
+    <div className="rounded-[2rem] border border-dashed border-slate-200/70 bg-slate-50 p-10 text-center dark:border-white/10 dark:bg-white/5">
+      <p className="text-xl font-semibold text-slate-900 dark:text-white">{title}</p>
+      <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-400">
         {description}
       </p>
 

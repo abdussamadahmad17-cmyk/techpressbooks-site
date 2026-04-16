@@ -32,7 +32,7 @@ const footerSections = {
 
 export default function Footer({ siteSettings }: FooterProps) {
   return (
-    <footer className="border-t border-white/10 bg-slate-950">
+    <footer className="border-t border-slate-200/70 bg-slate-50 dark:border-white/10 dark:bg-slate-950">
       <Container className="py-12">
         <div className="mb-12 rounded-4xl border border-slate-200/70 bg-white/70 p-8 backdrop-blur dark:border-white/10 dark:bg-white/5">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -65,10 +65,10 @@ export default function Footer({ siteSettings }: FooterProps) {
 
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div className="space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-900 dark:text-white">
               {siteSettings.siteTitle}
             </p>
-            <p className="max-w-md text-sm leading-7 text-slate-400">
+            <p className="max-w-md text-sm leading-7 text-slate-600 dark:text-slate-400">
               {siteSettings.footerText}
             </p>
           </div>
@@ -79,8 +79,8 @@ export default function Footer({ siteSettings }: FooterProps) {
           <FooterColumn title="Legal" links={footerSections.legal} />
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6">
-          <p className="text-xs text-slate-500">
+        <div className="mt-10 border-t border-slate-200/70 pt-6 dark:border-white/10">
+          <p className="text-xs text-slate-600 dark:text-slate-500">
             © {new Date().getFullYear()} {siteSettings.siteTitle}. All rights reserved.
           </p>
         </div>
