@@ -6,7 +6,7 @@ import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import type { Book } from "@/types/book"
 import { event } from "@/lib/analytics/gtag"
-import { surfaceTokens, textTokens } from "@/lib/theme-tokens"
+import { ArrowRight, ShoppingCart, Star } from "lucide-react"
 
 interface FeaturedBookCtaProps {
   book: Book
@@ -40,60 +40,85 @@ export default function FeaturedBookCta({
   return (
     <section className="py-20 sm:py-24">
       <Container>
-        <div className={`grid gap-8 ${surfaceTokens.glass} p-8 rounded-[2rem] lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center`}>
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-border-default bg-surface-soft">
-            <Image
-              src={book.coverImage}
-              alt={book.title}
-              fill
-              sizes="220px"
-              className="object-cover"
-            />
+        <div className="relative overflow-hidden rounded-3xl border border-border-default bg-surface-elevated">
+          {/* Subtle gradient accent */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+          >
+            <div className="absolute top-0 left-0 w-[600px] h-[400px] bg-gradient-to-br from-brand-primary/[0.03] via-transparent to-transparent" />
           </div>
 
-          <div className="space-y-5">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              {eyebrow}
-            </p>
-
-            <div className="space-y-3">
-              <h2 className={textTokens.h2}>
-                {title}
-              </h2>
-              <p className={textTokens.body}>
-                {description}
-              </p>
+          <div className="relative grid gap-8 p-8 sm:p-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:items-center lg:gap-12">
+            {/* Book cover */}
+            <div className="relative mx-auto lg:mx-0">
+              <div className="relative aspect-[3/4] w-[200px] sm:w-[220px] overflow-hidden rounded-2xl border border-border-default bg-surface-soft shadow-xl">
+                <Image
+                  src={book.coverImage}
+                  alt={book.title}
+                  fill
+                  sizes="220px"
+                  className="object-cover"
+                />
+              </div>
+              {/* Featured badge */}
+              <div className="absolute -top-3 -right-3 flex items-center gap-1 rounded-full bg-brand-primary px-3 py-1.5 shadow-lg">
+                <Star className="w-3.5 h-3.5 text-white fill-white" />
+                <span className="text-xs font-semibold text-white">Featured</span>
+              </div>
             </div>
 
-            <div className="rounded-[1.5rem] border border-border-default bg-surface-strong p-5">
-              <p className="text-sm uppercase tracking-[0.18em] text-text-secondary">
-                {book.categories[0] ?? "Book"}
-              </p>
-              <h3 className="mt-2 text-2xl font-semibold text-text-primary">
-                {book.title}
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-text-secondary">
-                {book.shortDescription}
-              </p>
+            {/* Content */}
+            <div className="space-y-6">
+              <div>
+                <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary mb-3">
+                  {eyebrow}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-balance mb-3">
+                  {title}
+                </h2>
+                <p className="text-base leading-relaxed text-text-secondary max-w-xl">
+                  {description}
+                </p>
+              </div>
 
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Button 
-                  href={`/books/${book.slug}`} 
-                  variant="primary"
-                  onClick={handleViewBook}
-                >
-                  View book
-                </Button>
+              {/* Book info card */}
+              <div className="rounded-2xl border border-border-default bg-surface-strong p-6">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="space-y-2">
+                    <span className="inline-flex items-center rounded-full bg-surface-soft px-2.5 py-1 text-xs font-medium text-text-secondary">
+                      {book.categories[0] ?? "Book"}
+                    </span>
+                    <h3 className="text-xl font-semibold text-text-primary">
+                      {book.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-text-secondary max-w-md">
+                      {book.shortDescription}
+                    </p>
+                  </div>
+                </div>
 
-                {book.amazonUrl ? (
+                <div className="mt-6 flex flex-wrap gap-3">
                   <Button 
-                    href={book.amazonUrl} 
-                    variant="secondary"
-                    onClick={handleBuyBook}
+                    href={`/books/${book.slug}`} 
+                    variant="primary"
+                    onClick={handleViewBook}
+                    icon={<ArrowRight className="w-4 h-4" />}
                   >
-                    Buy on Amazon
+                    View book
                   </Button>
-                ) : null}
+
+                  {book.amazonUrl && (
+                    <Button 
+                      href={book.amazonUrl} 
+                      variant="secondary"
+                      onClick={handleBuyBook}
+                      icon={<ShoppingCart className="w-4 h-4" />}
+                    >
+                      Buy on Amazon
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </div>

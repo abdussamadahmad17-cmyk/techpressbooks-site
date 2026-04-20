@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import { event } from "@/lib/analytics/gtag"
-import { surfaceTokens, sectionPatterns, textTokens } from "@/lib/theme-tokens"
+import { ArrowRight } from "lucide-react"
 
 interface SectionCtaProps {
   eyebrow?: string
@@ -44,35 +44,44 @@ export default function SectionCta({
   }, [secondaryAction]);
 
   return (
-    <section className={sectionPatterns.cta()}>
+    <section className="py-20 sm:py-24 lg:py-32">
       <Container>
-        <div className={`${surfaceTokens.glass} px-8 py-12 rounded-[2rem] sm:px-12`}>
-          <div className="max-w-3xl space-y-5">
-            {eyebrow ? (
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-                {eyebrow}
-              </p>
-            ) : null}
+        <div className="relative overflow-hidden rounded-3xl border border-border-default bg-surface-elevated p-8 sm:p-12 lg:p-16">
+          {/* Subtle gradient accent */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+          >
+            <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-gradient-to-bl from-brand-primary/[0.03] via-transparent to-transparent" />
+          </div>
 
-            <h2 className={textTokens.h2}>
+          <div className="relative max-w-3xl">
+            {eyebrow && (
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-primary mb-4">
+                {eyebrow}
+              </span>
+            )}
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-text-primary text-balance mb-4">
               {title}
             </h2>
 
-            <p className={textTokens.body}>
+            <p className="text-base sm:text-lg leading-relaxed text-text-secondary mb-8 max-w-2xl">
               {description}
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-4">
               <Button 
                 href={primaryAction.href} 
                 variant="primary" 
                 size="lg"
                 onClick={handlePrimaryClick}
+                icon={<ArrowRight className="w-4 h-4" />}
               >
                 {primaryAction.label}
               </Button>
 
-              {secondaryAction ? (
+              {secondaryAction && (
                 <Button 
                   href={secondaryAction.href} 
                   variant="secondary" 
@@ -81,7 +90,7 @@ export default function SectionCta({
                 >
                   {secondaryAction.label}
                 </Button>
-              ) : null}
+              )}
             </div>
           </div>
         </div>

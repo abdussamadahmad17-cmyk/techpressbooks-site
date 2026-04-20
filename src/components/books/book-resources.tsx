@@ -1,9 +1,16 @@
 import Link from "next/link"
 import BookHubSection from "@/components/books/book-hub-section"
 import type { ResourceLink } from "@/types/book"
+import { ExternalLink, Github, FileText, Link2 } from "lucide-react"
 
 interface BookResourcesProps {
   resources?: ResourceLink[]
+}
+
+const typeIcons: Record<string, typeof Github> = {
+  repository: Github,
+  documentation: FileText,
+  default: Link2,
 }
 
 export default function BookResources({ resources }: BookResourcesProps) {
@@ -18,41 +25,51 @@ export default function BookResources({ resources }: BookResourcesProps) {
       description="Explore repositories, technical documentation, and companion materials related to this book."
     >
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {resources.map((resource) => (
-          <article
-            key={`${resource.title}-${resource.url}`}
-            className="rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
-          >
-            <div className="space-y-4">
-              <div className="space-y-2">
-                {resource.type ? (
-                  <p className="text-xs uppercase tracking-[0.18em] text-red-400">
-                    {resource.type}
-                  </p>
-                ) : null}
+        {resources.map((resource) => {
+          const IconComponent = typeIcons[resource.type?.toLowerCase() ?? 'default'] || typeIcons.default
+          
+          return (
+            <article
+              key={`${resource.title}-${resource.url}`}
+              className="group rounded-2xl border border-border-default bg-surface-elevated p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-border-strong"
+            >
+              <div className="space-y-4">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-surface-soft border border-border-subtle">
+                      <IconComponent className="w-5 h-5 text-text-muted" />
+                    </div>
+                    {resource.type && (
+                      <span className="text-xs font-medium uppercase tracking-wider text-brand-primary">
+                        {resource.type}
+                      </span>
+                    )}
+                  </div>
 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                  {resource.title}
-                </h3>
+                  <h3 className="text-lg font-semibold text-text-primary">
+                    {resource.title}
+                  </h3>
 
-                {resource.description ? (
-                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
-                    {resource.description}
-                  </p>
-                ) : null}
+                  {resource.description && (
+                    <p className="text-sm leading-relaxed text-text-secondary">
+                      {resource.description}
+                    </p>
+                  )}
+                </div>
+
+                <Link
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-border-strong bg-surface-elevated px-4 py-2 text-sm font-medium text-text-primary transition-all hover:bg-surface-soft"
+                >
+                  Open resource
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
               </div>
-
-              <Link
-                href={resource.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex rounded-xl border border-slate-200/70 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
-              >
-                Open resource
-              </Link>
-            </div>
-          </article>
-        ))}
+            </article>
+          )
+        })}
       </div>
     </BookHubSection>
   )

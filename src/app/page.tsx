@@ -9,6 +9,7 @@ import { getFeaturedBooks } from "@/features/books/service"
 import { getSiteSettings } from "@/features/site-settings/service"
 import { getAllPosts } from "@/features/posts/service"
 import PostGrid from "@/components/blog/post-grid"
+import { ArrowRight } from "lucide-react"
 
 export default async function HomePage() {
   const [featuredBooks, siteSettings, posts] = await Promise.all([
@@ -37,38 +38,42 @@ export default async function HomePage() {
           {
             title: "Production-focused",
             description:
-              "Books and articles built around real systems, real constraints, and operational tradeoffs."
+              "Books and articles built around real systems, real constraints, and operational tradeoffs.",
+            icon: "cpu"
           },
           {
             title: "Security-minded",
             description:
-              "Clear explanations shaped by practical threat models, architecture risks, and engineering realism."
+              "Clear explanations shaped by practical threat models, architecture risks, and engineering realism.",
+            icon: "shield"
           },
           {
             title: "Engineer-friendly",
             description:
-              "Structured, readable, and useful technical writing without academic fluff or vague abstractions."
+              "Structured, readable, and useful technical writing without academic fluff or vague abstractions.",
+            icon: "book"
           }
         ]}
       />
 
-      <section className="py-20 sm:py-24">
+      <section className="py-20 sm:py-24 lg:py-28">
         <Container>
           <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
             <div className="space-y-3">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand-primary">
                 Featured Titles
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-balance">
                 Start with the flagship books
               </h2>
             </div>
 
             <Link
               href="/books"
-              className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
             >
-              View all books →
+              View all books
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
 
@@ -76,33 +81,34 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {featuredBook ? <FeaturedBookCta book={featuredBook} /> : null}
+      {featuredBook && <FeaturedBookCta book={featuredBook} />}
 
-      {latestPosts.length > 0 ? (
-        <section className="py-20 sm:py-24">
+      {latestPosts.length > 0 && (
+        <section className="py-20 sm:py-24 lg:py-28 border-t border-border-subtle">
           <Container>
             <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-3">
-                <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-primary">
                   Latest Articles
-                </p>
-                <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-balance">
                   Learn through practical technical writing
                 </h2>
               </div>
 
               <Link
                 href="/blog"
-                className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
               >
-                Visit the blog →
+                Visit the blog
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
 
             <PostGrid posts={latestPosts} />
           </Container>
         </section>
-      ) : null}
+      )}
 
       <SectionCta
         eyebrow="Build authority through clarity"

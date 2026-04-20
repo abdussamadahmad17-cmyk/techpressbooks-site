@@ -20,7 +20,7 @@ export default async function AuthorsPage() {
         description="Explore authors, their books, and their technical articles."
       />
 
-      <section className="py-14 sm:py-16">
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
           <AuthorGrid authors={authors} />
         </Container>
