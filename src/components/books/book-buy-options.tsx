@@ -1,74 +1,87 @@
-import type { PurchaseOption } from '@/types/book'
-import Button from '@/components/shared/button'
-import Container from '@/components/layout/container'
+import Link from "next/link"
+import BookHubSection from "@/components/books/book-hub-section"
+import type { Book, PurchaseOption } from "@/types/book"
 
 interface BookBuyOptionsProps {
-  buyOptions?: PurchaseOption[]
+  book: Book
 }
 
-export default function BookBuyOptions({ buyOptions }: BookBuyOptionsProps) {
-  if (!buyOptions?.length) {
+export default function BookBuyOptions({ book }: BookBuyOptionsProps) {
+  const buyOptions =
+    book.buyOptions && book.buyOptions.length > 0
+      ? book.buyOptions
+      : book.amazonUrl
+      ? [
+          {
+            label: "Buy on Amazon",
+            url: book.amazonUrl,
+            type: "physical",
+            isPrimary: true,
+            note: "Print edition"
+          } satisfies PurchaseOption
+        ]
+      : []
+
+  if (buyOptions.length === 0) {
     return null
   }
 
   return (
-    <section className="pb-20">
-      <Container>
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              Purchase options
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Buy the book your way
-            </h2>
-            <p className="max-w-2xl text-slate-600 dark:text-slate-400">
-              Offer readers multiple ways to purchase the book, including digital, physical, and external storefront options.
-            </p>
-          </div>
+    <BookHubSection
+      eyebrow="Buy Options"
+      title="Choose how you want to get this book"
+      description="Use the options below to access the print edition, digital edition, or external purchase channels."
+    >
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {buyOptions.map((option) => (
+          <article
+            key={`${option.label}-${option.url}`}
+            className={[
+              "rounded-3xl border p-6 backdrop-blur transition",
+              option.isPrimary
+                ? "border-red-500/40 bg-red-500/10 shadow-sm"
+                : "border-slate-200/70 bg-white/70 dark:border-white/10 dark:bg-white/5"
+            ].join(" ")}
+          >
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-[0.18em] text-red-400">
+                  {option.type ?? "purchase"}
+                </p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+                  {option.label}
+                </h3>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {buyOptions.map((option) => (
-              <div
-                key={option.url}
-                className="rounded-4xl border border-slate-200/70 bg-slate-50 p-6 shadow-sm transition hover:border-slate-300 dark:border-white/10 dark:bg-slate-900"
-              >
-                <div className="flex items-center justify-between gap-4 pb-4">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-900 dark:text-white">
-                      {option.label}
-                    </p>
-                    {option.type ? (
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                        {option.type}
-                      </p>
-                    ) : null}
-                  </div>
-                  {option.priceText ? (
-                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                      {option.priceText}
-                    </p>
-                  ) : null}
-                </div>
-
-                {option.note ? (
-                  <p className="mb-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                    {option.note}
+                {option.priceText ? (
+                  <p className="text-sm font-medium text-slate-900 dark:text-white">
+                    {option.priceText}
                   </p>
                 ) : null}
 
-                <Button
-                  href={option.url}
-                  variant={option.isPrimary ? 'primary' : 'secondary'}
-                  size="md"
-                >
-                  {option.isPrimary ? 'Buy now' : 'View option'}
-                </Button>
+                {option.note ? (
+                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
+                    {option.note}
+                  </p>
+                ) : null}
               </div>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+
+              <Link
+                href={option.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={[
+                  "inline-flex rounded-xl px-4 py-2 text-sm font-medium transition",
+                  option.isPrimary
+                    ? "bg-red-600 text-white hover:bg-red-500"
+                    : "border border-slate-200/70 bg-white text-slate-700 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+                ].join(" ")}
+              >
+                Open option
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </BookHubSection>
   )
 }

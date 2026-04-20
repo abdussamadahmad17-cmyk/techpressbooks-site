@@ -105,10 +105,10 @@ export default async function BookDetailPage({ params }: Props) {
         </section>
       ) : null}
 
-      <BookBuyOptions buyOptions={book.buyOptions} />
-      <BookResources resourceLinks={book.resourceLinks} />
+      <BookBuyOptions book={book} />
+      <BookResources resources={book.resourceLinks} />
       <BookDownloads downloads={book.downloads} />
-      <BookRelatedPosts relatedPosts={book.relatedPosts} />
+      <BookRelatedPosts posts={book.relatedPosts} />
       <BookUpdates updates={book.updates} />
 
       <RelatedBooks books={relatedBooks} />

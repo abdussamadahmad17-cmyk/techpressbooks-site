@@ -1,65 +1,59 @@
-import type { ResourceLink } from '@/types/book'
-import Button from '@/components/shared/button'
-import Container from '@/components/layout/container'
+import Link from "next/link"
+import BookHubSection from "@/components/books/book-hub-section"
+import type { ResourceLink } from "@/types/book"
 
 interface BookResourcesProps {
-  resourceLinks?: ResourceLink[]
+  resources?: ResourceLink[]
 }
 
-export default function BookResources({ resourceLinks }: BookResourcesProps) {
-  if (!resourceLinks?.length) {
+export default function BookResources({ resources }: BookResourcesProps) {
+  if (!resources || resources.length === 0) {
     return null
   }
 
   return (
-    <section className="pb-20">
-      <Container>
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              Learning resources
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Useful repo links and docs
-            </h2>
-            <p className="max-w-2xl text-slate-600 dark:text-slate-400">
-              Share the most important resources readers need for the book, including GitHub repos and reference documentation.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {resourceLinks.map((resource) => (
-              <div
-                key={resource.url}
-                className="rounded-4xl border border-slate-200/70 bg-slate-50 p-6 shadow-sm dark:border-white/10 dark:bg-slate-900"
-              >
-                <div className="flex items-center justify-between gap-4 pb-3">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-900 dark:text-white">
-                      {resource.title}
-                    </p>
-                    {resource.type ? (
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                        {resource.type}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                {resource.description ? (
-                  <p className="mb-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                    {resource.description}
+    <BookHubSection
+      eyebrow="Resources"
+      title="Companion resources and code"
+      description="Explore repositories, technical documentation, and companion materials related to this book."
+    >
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {resources.map((resource) => (
+          <article
+            key={`${resource.title}-${resource.url}`}
+            className="rounded-3xl border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+          >
+            <div className="space-y-4">
+              <div className="space-y-2">
+                {resource.type ? (
+                  <p className="text-xs uppercase tracking-[0.18em] text-red-400">
+                    {resource.type}
                   </p>
                 ) : null}
 
-                <Button href={resource.url} variant="secondary" size="md">
-                  Open resource
-                </Button>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+                  {resource.title}
+                </h3>
+
+                {resource.description ? (
+                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
+                    {resource.description}
+                  </p>
+                ) : null}
               </div>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+
+              <Link
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-xl border border-slate-200/70 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+              >
+                Open resource
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </BookHubSection>
   )
 }

@@ -1,52 +1,59 @@
-import Link from 'next/link'
-import type { Post } from '@/types/post'
-import Container from '@/components/layout/container'
+import Link from "next/link"
+import BookHubSection from "@/components/books/book-hub-section"
+import type { Post } from "@/types/post"
 
 interface BookRelatedPostsProps {
-  relatedPosts?: Post[]
+  posts?: Post[]
 }
 
-export default function BookRelatedPosts({ relatedPosts }: BookRelatedPostsProps) {
-  if (!relatedPosts?.length) {
+export default function BookRelatedPosts({ posts }: BookRelatedPostsProps) {
+  if (!posts || posts.length === 0) {
     return null
   }
 
   return (
-    <section className="pb-20">
-      <Container>
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              Related blog posts
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Learn more from related writing
-            </h2>
-            <p className="max-w-2xl text-slate-600 dark:text-slate-400">
-              Drive deeper engagement by linking readers to posts that expand on the book’s themes.
-            </p>
-          </div>
+    <BookHubSection
+      eyebrow="Related Articles"
+      title="Read supporting technical articles"
+      description="These articles expand on ideas, patterns, and implementation topics related to this book."
+    >
+      <div className="grid gap-5 lg:grid-cols-2">
+        {posts.map((post) => (
+          <article
+            key={post.slug}
+            className="rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+          >
+            <div className="space-y-4">
+              <div className="space-y-2">
+                {post.categories?.length ? (
+                  <p className="text-xs uppercase tracking-[0.18em] text-red-400">
+                    {post.categories[0]}
+                  </p>
+                ) : null}
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {relatedPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group rounded-4xl border border-slate-200/70 bg-slate-50 p-6 transition hover:border-slate-300 dark:border-white/10 dark:bg-slate-900"
-              >
-                <p className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-red-600">
-                  {post.title}
-                </p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+                  <Link href={`/blog/${post.slug}`} className="hover:text-red-300">
+                    {post.title}
+                  </Link>
+                </h3>
+
                 {post.excerpt ? (
-                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
                     {post.excerpt}
                   </p>
                 ) : null}
+              </div>
+
+              <Link
+                href={`/blog/${post.slug}`}
+                className="inline-flex text-sm font-medium text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+              >
+                Read article →
               </Link>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+            </div>
+          </article>
+        ))}
+      </div>
+    </BookHubSection>
   )
 }

@@ -1,67 +1,61 @@
-import type { DownloadItem } from '@/types/book'
-import Container from '@/components/layout/container'
+import Link from "next/link"
+import BookHubSection from "@/components/books/book-hub-section"
+import type { DownloadItem } from "@/types/book"
 
 interface BookDownloadsProps {
   downloads?: DownloadItem[]
 }
 
 export default function BookDownloads({ downloads }: BookDownloadsProps) {
-  if (!downloads?.length) {
+  if (!downloads || downloads.length === 0) {
     return null
   }
 
   return (
-    <section className="pb-20">
-      <Container>
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              Downloads
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Download code and companion assets
-            </h2>
-            <p className="max-w-2xl text-slate-600 dark:text-slate-400">
-              Provide downloadable files that support readers with sample code, templates, and reference materials.
-            </p>
-          </div>
+    <BookHubSection
+      eyebrow="Downloads"
+      title="Download companion assets"
+      description="Access code packs, templates, worksheets, diagrams, and downloadable files for this book."
+    >
+      <div className="space-y-4">
+        {downloads.map((item) => (
+          <article
+            key={`${item.title}-${item.fileUrl}`}
+            className="rounded-3xl border border-slate-200/70 bg-white/70 p-5 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+          >
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                    {item.title}
+                  </h3>
 
-          <div className="grid gap-4">
-            {downloads.map((download) => (
-              <div
-                key={`${download.title}-${download.version ?? 'latest'}`}
-                className="rounded-4xl border border-slate-200/70 bg-slate-50 p-6 shadow-sm dark:border-white/10 dark:bg-slate-900"
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-900 dark:text-white">
-                      {download.title}
-                    </p>
-                    {download.version ? (
-                      <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Version {download.version}
-                      </p>
-                    ) : null}
-                  </div>
-
-                  <a
-                    href={download.fileUrl}
-                    className="inline-flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white px-4 py-2 text-sm font-medium text-slate-900 transition hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
-                  >
-                    Download
-                  </a>
+                  {item.version ? (
+                    <span className="rounded-full border border-slate-200/70 bg-slate-50 px-3 py-1 text-xs text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                      {item.version}
+                    </span>
+                  ) : null}
                 </div>
 
-                {download.description ? (
-                  <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                    {download.description}
+                {item.description ? (
+                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
+                    {item.description}
                   </p>
                 ) : null}
               </div>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+
+              <Link
+                href={item.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-500"
+              >
+                Download
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </BookHubSection>
   )
 }
