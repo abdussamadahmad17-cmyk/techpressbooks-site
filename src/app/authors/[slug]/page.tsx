@@ -5,6 +5,7 @@ import Container from "@/components/layout/container"
 import BookGrid from "@/components/books/book-grid"
 import PostGrid from "@/components/blog/post-grid"
 import { getAllAuthorSlugs, getAuthorBySlug } from "@/features/authors/service"
+import { BookOpen, FileText } from "lucide-react"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -41,57 +42,86 @@ export default async function AuthorDetailPage({ params }: Props) {
 
   return (
     <>
-      <section className="border-b border-white/10 py-16 sm:py-20">
+      {/* Author header */}
+      <section className="py-16 sm:py-20 lg:py-24 border-b border-border-subtle">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[160px_minmax(0,1fr)] lg:items-start">
-            <div className="relative h-40 w-40 overflow-hidden rounded-4xl border border-slate-200/70 bg-slate-100 dark:border-white/10 dark:bg-slate-800">
+          <div className="grid gap-8 lg:grid-cols-[180px_minmax(0,1fr)] lg:items-start lg:gap-12">
+            {/* Avatar */}
+            <div className="relative h-40 w-40 lg:h-[180px] lg:w-[180px] mx-auto lg:mx-0 overflow-hidden rounded-3xl border border-border-default bg-surface-soft shadow-lg">
               {author.image ? (
                 <Image
                   src={author.image}
                   alt={author.name}
                   fill
-                  sizes="160px"
+                  sizes="180px"
                   className="object-cover"
                 />
-              ) : null}
+              ) : (
+                <div className="flex items-center justify-center w-full h-full bg-brand-primary-soft">
+                  <span className="text-5xl font-semibold text-brand-primary">
+                    {author.name.charAt(0)}
+                  </span>
+                </div>
+              )}
             </div>
 
-            <div className="space-y-4">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-                Author
-              </p>
+            {/* Info */}
+            <div className="space-y-5 text-center lg:text-left">
+              <div className="space-y-3">
+                <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary">
+                  Author
+                </span>
 
-              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                {author.name}
-              </h1>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-text-primary text-balance">
+                  {author.name}
+                </h1>
 
-              {author.role ? (
-                <p className="text-lg text-slate-400">{author.role}</p>
-              ) : null}
+                {author.role && (
+                  <p className="text-lg text-text-secondary">{author.role}</p>
+                )}
+              </div>
 
-              {author.bio ? (
-                <p className="max-w-3xl text-base leading-8 text-slate-300">
+              {author.bio && (
+                <p className="max-w-2xl text-base leading-relaxed text-text-secondary mx-auto lg:mx-0">
                   {author.bio}
                 </p>
-              ) : null}
+              )}
 
-              <p className="text-sm text-slate-500">
-                {author.books.length} {author.books.length === 1 ? "book" : "books"} ·{" "}
-                {author.posts.length} {author.posts.length === 1 ? "post" : "posts"}
-              </p>
+              {/* Stats */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6">
+                <div className="flex items-center gap-2 text-text-muted">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-soft border border-border-subtle">
+                    <BookOpen className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm">
+                    <span className="font-semibold text-text-primary">{author.books.length}</span>{" "}
+                    {author.books.length === 1 ? "book" : "books"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-text-muted">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-soft border border-border-subtle">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm">
+                    <span className="font-semibold text-text-primary">{author.posts.length}</span>{" "}
+                    {author.posts.length === 1 ? "article" : "articles"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {author.books.length > 0 ? (
-        <section className="py-14 sm:py-16">
+      {/* Books section */}
+      {author.books.length > 0 && (
+        <section className="py-14 sm:py-16 lg:py-20">
           <Container>
-            <div className="mb-8 space-y-3">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+            <div className="mb-10 space-y-3">
+              <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary">
                 Books
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
                 Books by {author.name}
               </h2>
             </div>
@@ -99,16 +129,17 @@ export default async function AuthorDetailPage({ params }: Props) {
             <BookGrid books={author.books} />
           </Container>
         </section>
-      ) : null}
+      )}
 
-      {author.posts.length > 0 ? (
-        <section className="pb-20 sm:pb-24">
+      {/* Articles section */}
+      {author.posts.length > 0 && (
+        <section className="py-14 sm:py-16 lg:py-20 border-t border-border-subtle">
           <Container>
-            <div className="mb-8 space-y-3">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+            <div className="mb-10 space-y-3">
+              <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary">
                 Articles
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
                 Articles by {author.name}
               </h2>
             </div>
@@ -116,7 +147,7 @@ export default async function AuthorDetailPage({ params }: Props) {
             <PostGrid posts={author.posts} />
           </Container>
         </section>
-      ) : null}
+      )}
     </>
   )
 }

@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 import type { Post } from "@/types/post"
+import { ArrowRight, Calendar, User } from "lucide-react"
 
 interface PostCardProps {
   post: Post
@@ -8,46 +8,64 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <article className={cardPatterns.default()}>
+    <article className="group rounded-2xl border border-border-default bg-surface-elevated p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-border-strong">
       <div className="space-y-4">
-        {post.categories.length > 0 ? (
-          <p className="text-xs uppercase tracking-[0.2em] text-red-400">
+        {/* Category badge */}
+        {post.categories.length > 0 && (
+          <span className="inline-flex items-center rounded-full bg-brand-primary-soft px-2.5 py-1 text-xs font-medium text-brand-primary">
             {post.categories[0]}
-          </p>
-        ) : null}
+          </span>
+        )}
 
-        <div className="space-y-2">
-          <h2 className={textTokens.h3}>
-            <Link href={`/blog/${post.slug}`} className="hover:text-red-300">
+        {/* Title and meta */}
+        <div className="space-y-3">
+          <h2 className="text-xl font-semibold tracking-tight text-text-primary">
+            <Link 
+              href={`/blog/${post.slug}`} 
+              className="transition hover:text-brand-primary"
+            >
               {post.title}
             </Link>
           </h2>
 
-          <div className="flex flex-wrap gap-3 text-sm text-text-muted">
-            {post.publishedAt ? (
-              <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-            ) : null}
+          <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+            {post.publishedAt && (
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </span>
+            )}
 
-            {post.author ? (
+            {post.author && (
               <Link
                 href={`/authors/${post.author.slug}`}
-                className="transition text-text-secondary hover:text-text-primary"
+                className="flex items-center gap-1.5 text-text-secondary transition hover:text-text-primary"
               >
-                By {post.author.name}
+                <User className="w-3.5 h-3.5" />
+                {post.author.name}
               </Link>
-            ) : null}
+            )}
           </div>
         </div>
 
-        {post.excerpt ? (
-          <p className="text-sm leading-7 text-text-secondary">{post.excerpt}</p>
-        ) : null}
+        {/* Excerpt */}
+        {post.excerpt && (
+          <p className="text-sm leading-relaxed text-text-secondary line-clamp-3">
+            {post.excerpt}
+          </p>
+        )}
 
+        {/* Read more link */}
         <Link
           href={`/blog/${post.slug}`}
-          className="inline-flex text-sm font-medium text-text-secondary transition hover:text-text-primary"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary transition hover:text-brand-primary group/link"
         >
-          Read article →
+          Read article
+          <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5" />
         </Link>
       </div>
     </article>

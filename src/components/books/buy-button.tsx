@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import Button from "@/components/shared/button"
 import { event } from "@/lib/analytics/gtag"
+import { ShoppingCart, Clock } from "lucide-react"
 
 interface BuyButtonProps {
   href?: string
@@ -20,8 +21,15 @@ export default function BuyButton({ href, title }: BuyButtonProps) {
 
   if (!href) {
     return (
-      <Button type="button" variant="secondary" size="md" disabled>
-        Purchase link coming soon
+      <Button 
+        type="button" 
+        variant="secondary" 
+        size="lg" 
+        disabled
+        icon={<Clock className="w-4 h-4" />}
+        iconPosition="left"
+      >
+        Coming soon
       </Button>
     )
   }
@@ -30,8 +38,10 @@ export default function BuyButton({ href, title }: BuyButtonProps) {
     <Button 
       href={href} 
       variant="primary" 
-      size="md"
+      size="lg"
       onClick={handleBuyClick}
+      icon={<ShoppingCart className="w-4 h-4" />}
+      iconPosition="left"
     >
       Buy on Amazon
     </Button>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Script from "next/script"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/layout/navbar"
 import Footer from "@/components/layout/footer"
@@ -7,6 +8,18 @@ import ThemeProvider from "@/components/providers/theme-provider"
 import { PageViewTracker } from "@/components/analytics/PageViewTracker"
 import { getSiteSettings } from "@/features/site-settings/service"
 import { GA_ID } from "@/lib/analytics/gtag"
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
@@ -59,7 +72,7 @@ export default async function RootLayout({
   const siteSettings = await getSiteSettings()
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         {GA_ID && (
           <>
@@ -82,7 +95,7 @@ export default async function RootLayout({
           </>
         )}
       </head>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

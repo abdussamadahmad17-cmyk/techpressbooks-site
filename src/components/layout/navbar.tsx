@@ -8,6 +8,7 @@ import Button from "@/components/shared/button"
 import ThemeToggle from "@/components/shared/theme-toggle"
 import { cn } from "@/lib/cn"
 import type { SiteSettings } from "@/types/site-settings"
+import { Menu, X } from "lucide-react"
 
 interface NavbarProps {
   siteSettings: SiteSettings
@@ -41,16 +42,18 @@ export default function Navbar({ siteSettings }: NavbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+    <header className="sticky top-0 z-50 border-b border-border-default bg-surface-elevated/80 backdrop-blur-xl">
       <Container className="flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="h-3 w-3 rounded-full bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.7)]" />
-          <span className="text-base font-semibold uppercase tracking-[0.18em] text-slate-900 dark:text-white">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="h-2.5 w-2.5 rounded-full bg-brand-primary shadow-[0_0_16px_rgba(220,38,38,0.5)] transition-shadow group-hover:shadow-[0_0_20px_rgba(220,38,38,0.7)]" />
+          <span className="text-sm font-semibold uppercase tracking-widest text-text-primary">
             {siteSettings.siteTitle}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        {/* Desktop navigation */}
+        <nav className="hidden items-center gap-1 lg:flex">
           {navigation.map((item) => {
             const active = isActive(item.href)
 
@@ -59,8 +62,10 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                 key={`${item.label}-${item.href}`}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition",
-                  active ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                  "px-3.5 py-2 rounded-lg text-sm font-medium transition-colors",
+                  active 
+                    ? "text-text-primary bg-surface-soft" 
+                    : "text-text-secondary hover:text-text-primary hover:bg-surface-soft/50"
                 )}
                 aria-current={active ? "page" : undefined}
               >
@@ -70,9 +75,10 @@ export default function Navbar({ siteSettings }: NavbarProps) {
           })}
         </nav>
 
+        {/* Desktop actions */}
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
-          <Button href="/become-an-author" variant="secondary" size="sm">
+          <Button href="/become-an-author" variant="ghost" size="sm">
             Become an Author
           </Button>
           <Button href="/books" variant="primary" size="sm">
@@ -80,21 +86,23 @@ export default function Navbar({ siteSettings }: NavbarProps) {
           </Button>
         </div>
 
+        {/* Mobile menu button */}
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex items-center rounded-xl border border-slate-200/70 px-3 py-2 text-sm text-slate-600 dark:border-white/10 dark:text-slate-200 lg:hidden"
+          className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border-default bg-surface-elevated text-text-secondary transition hover:bg-surface-soft hover:text-text-primary lg:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
         >
-          Menu
+          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </Container>
 
-      {isOpen ? (
-        <div className="border-t border-slate-200/70 dark:border-white/10 lg:hidden">
+      {/* Mobile navigation */}
+      {isOpen && (
+        <div className="border-t border-border-default bg-surface-elevated lg:hidden">
           <Container className="py-4">
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1">
               {navigation.map((item) => {
                 const active = isActive(item.href)
 
@@ -104,10 +112,10 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "rounded-xl px-3 py-2 text-sm font-medium transition",
+                      "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
                       active
-                        ? "bg-slate-100 text-slate-900 dark:bg-white/10 dark:text-white"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
+                        ? "bg-surface-soft text-text-primary"
+                        : "text-text-secondary hover:bg-surface-soft/50 hover:text-text-primary"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
@@ -116,19 +124,21 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                 )
               })}
 
-              <div className="mt-4 flex flex-col gap-3 border-t border-slate-200/70 pt-4 dark:border-white/10">
-                <ThemeToggle />
-                <Button href="/become-an-author" variant="secondary" size="sm">
+              <div className="mt-4 flex flex-col gap-3 border-t border-border-subtle pt-4">
+                <div className="px-4 py-2">
+                  <ThemeToggle />
+                </div>
+                <Button href="/become-an-author" variant="secondary" size="md">
                   Become an Author
                 </Button>
-                <Button href="/books" variant="primary" size="sm">
+                <Button href="/books" variant="primary" size="md">
                   Browse Books
                 </Button>
               </div>
             </nav>
           </Container>
         </div>
-      ) : null}
+      )}
     </header>
   )
 }

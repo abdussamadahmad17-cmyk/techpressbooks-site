@@ -20,7 +20,7 @@ export default async function BlogPage() {
         description="Practical articles that teach clearly, build trust, and connect readers to deeper technical books."
       />
 
-      <section className="py-14 sm:py-16">
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
           <PostGrid posts={posts} />
         </Container>

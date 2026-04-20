@@ -14,25 +14,25 @@ export default function BookHubSection({
   children
 }: BookHubSectionProps) {
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-14 sm:py-16 border-t border-border-subtle">
       <Container>
         <div className="space-y-8">
           <div className="max-w-3xl space-y-3">
-            {eyebrow ? (
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+            {eyebrow && (
+              <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary">
                 {eyebrow}
-              </p>
-            ) : null}
+              </span>
+            )}
 
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
               {title}
             </h2>
 
-            {description ? (
-              <p className="text-base leading-8 text-slate-600 dark:text-slate-400">
+            {description && (
+              <p className="text-base leading-relaxed text-text-secondary">
                 {description}
               </p>
-            ) : null}
+            )}
           </div>
 
           {children}

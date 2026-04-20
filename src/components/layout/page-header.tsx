@@ -1,5 +1,4 @@
 import Container from "@/components/layout/container"
-import { sectionPatterns, textTokens } from "@/lib/theme-tokens"
 
 interface PageHeaderProps {
   eyebrow?: string
@@ -13,24 +12,24 @@ export default function PageHeader({
   description
 }: PageHeaderProps) {
   return (
-    <section className={sectionPatterns.header()}>
+    <section className="py-16 sm:py-20 lg:py-24 border-b border-border-subtle">
       <Container>
         <div className="max-w-3xl space-y-4">
-          {eyebrow ? (
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+          {eyebrow && (
+            <span className="inline-flex text-xs font-semibold uppercase tracking-widest text-brand-primary">
               {eyebrow}
-            </p>
-          ) : null}
+            </span>
+          )}
 
-          <h1 className={textTokens.h1}>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-text-primary text-balance">
             {title}
           </h1>
 
-          {description ? (
-            <p className={textTokens.body}>
+          {description && (
+            <p className="text-lg leading-relaxed text-text-secondary max-w-2xl">
               {description}
             </p>
-          ) : null}
+          )}
         </div>
       </Container>
     </section>

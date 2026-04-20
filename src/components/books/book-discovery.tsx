@@ -6,7 +6,7 @@ import type { Book } from "@/types/book"
 import BookGrid from "@/components/books/book-grid"
 import EmptyState from "@/components/shared/empty-state"
 import Button from "@/components/shared/button"
-import { formPatterns, surfaceTokens, textTokens } from "@/lib/theme-tokens"
+import { Search, SlidersHorizontal, X } from "lucide-react"
 import {
   filterBooks,
   getUniqueCategories,
@@ -71,6 +71,13 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
     filters.tag.length > 0 ||
     filters.sort !== "featured"
 
+  const activeFilterCount = [
+    filters.query,
+    filters.category,
+    filters.tag,
+    filters.sort !== "featured" ? filters.sort : ""
+  ].filter(Boolean).length
+
   const updateUrl = useCallback((nextFilters: BookFilterState) => {
     const params = new URLSearchParams()
 
@@ -125,31 +132,47 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
 
   return (
     <div className="space-y-8">
-      <div className={`rounded-4xl ${surfaceTokens.default} p-5 backdrop-blur sm:p-6`}>
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.5fr)_220px_220px_220px_auto] xl:items-end">
+      {/* Filter panel */}
+      <div className="rounded-2xl border border-border-default bg-surface-elevated p-5 shadow-sm">
+        <div className="flex items-center gap-2 mb-5 pb-4 border-b border-border-subtle">
+          <SlidersHorizontal className="w-4 h-4 text-text-muted" />
+          <span className="text-sm font-medium text-text-primary">Filters</span>
+          {activeFilterCount > 0 && (
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand-primary text-[10px] font-semibold text-white">
+              {activeFilterCount}
+            </span>
+          )}
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.5fr)_180px_180px_180px_auto] lg:items-end">
+          {/* Search input */}
           <div className="space-y-2">
             <label
               htmlFor="book-search"
-              className={formPatterns.label}
+              className="text-sm font-medium text-text-primary"
             >
               Search
             </label>
-            <input
-              id="book-search"
-              type="text"
-              value={filters.query}
-              onChange={(event) =>
-                updateFilters({ query: event.target.value })
-              }
-              placeholder="Search by title, author, category, or tag"
-              className={formPatterns.input}
-            />
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+              <input
+                id="book-search"
+                type="text"
+                value={filters.query}
+                onChange={(event) =>
+                  updateFilters({ query: event.target.value })
+                }
+                placeholder="Search books..."
+                className="w-full rounded-xl border border-border-default bg-surface-strong pl-10 pr-4 py-2.5 text-sm text-text-primary shadow-sm outline-none transition-all placeholder:text-text-muted focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20"
+              />
+            </div>
           </div>
 
+          {/* Category select */}
           <div className="space-y-2">
             <label
               htmlFor="book-category"
-              className={formPatterns.label}
+              className="text-sm font-medium text-text-primary"
             >
               Category
             </label>
@@ -159,7 +182,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
               onChange={(event) =>
                 updateFilters({ category: event.target.value })
               }
-              className={formPatterns.select}
+              className="w-full rounded-xl border border-border-default bg-surface-strong px-3.5 py-2.5 text-sm text-text-primary shadow-sm outline-none transition-all focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20"
             >
               <option value="">All categories</option>
               {categories.map((category) => (
@@ -170,10 +193,11 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
             </select>
           </div>
 
+          {/* Tag select */}
           <div className="space-y-2">
             <label
               htmlFor="book-tag"
-              className={formPatterns.label}
+              className="text-sm font-medium text-text-primary"
             >
               Tag
             </label>
@@ -181,7 +205,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
               id="book-tag"
               value={filters.tag}
               onChange={(event) => updateFilters({ tag: event.target.value })}
-              className={formPatterns.select}
+              className="w-full rounded-xl border border-border-default bg-surface-strong px-3.5 py-2.5 text-sm text-text-primary shadow-sm outline-none transition-all focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20"
             >
               <option value="">All tags</option>
               {tags.map((tag) => (
@@ -192,10 +216,11 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
             </select>
           </div>
 
+          {/* Sort select */}
           <div className="space-y-2">
             <label
               htmlFor="book-sort"
-              className={formPatterns.label}
+              className="text-sm font-medium text-text-primary"
             >
               Sort
             </label>
@@ -207,63 +232,92 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
                   sort: event.target.value as BookFilterState["sort"]
                 })
               }
-              className={formPatterns.select}
+              className="w-full rounded-xl border border-border-default bg-surface-strong px-3.5 py-2.5 text-sm text-text-primary shadow-sm outline-none transition-all focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20"
             >
               <option value="featured">Featured first</option>
-              <option value="title-asc">Title A–Z</option>
-              <option value="title-desc">Title Z–A</option>
+              <option value="title-asc">Title A-Z</option>
+              <option value="title-desc">Title Z-A</option>
             </select>
           </div>
 
+          {/* Clear button */}
           <button
             type="button"
             onClick={resetFilters}
             disabled={!hasActiveFilters}
-            className="inline-flex items-center justify-center h-12 px-5 text-sm font-medium transition border rounded-2xl border-border-default bg-surface-strong text-text-primary hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 h-[42px] px-4 text-sm font-medium transition-all border rounded-xl border-border-default bg-surface-strong text-text-secondary hover:bg-surface-soft hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-40"
           >
+            <X className="w-3.5 h-3.5" />
             Clear
           </button>
         </div>
       </div>
 
+      {/* Results summary */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-text-secondary">
           Showing <span className="font-medium text-text-primary">{filteredBooks.length}</span>{" "}
           of <span className="font-medium text-text-primary">{books.length}</span> books
-          {isPending ? (
-            <span className="ml-2 text-text-muted">Updating…</span>
-          ) : null}
+          {isPending && (
+            <span className="ml-2 text-text-muted">Updating...</span>
+          )}
         </p>
 
-        {hasActiveFilters ? (
+        {/* Active filter badges */}
+        {hasActiveFilters && (
           <div className="flex flex-wrap gap-2">
-            {filters.query ? (
-              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
+            {filters.query && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border rounded-full border-border-default bg-surface-soft text-text-secondary">
                 Search: {filters.query}
+                <button
+                  onClick={() => updateFilters({ query: "" })}
+                  className="hover:text-text-primary"
+                >
+                  <X className="w-3 h-3" />
+                </button>
               </span>
-            ) : null}
+            )}
 
-            {filters.category ? (
-              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
+            {filters.category && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border rounded-full border-border-default bg-surface-soft text-text-secondary">
                 Category: {filters.category}
+                <button
+                  onClick={() => updateFilters({ category: "" })}
+                  className="hover:text-text-primary"
+                >
+                  <X className="w-3 h-3" />
+                </button>
               </span>
-            ) : null}
+            )}
 
-            {filters.tag ? (
-              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
+            {filters.tag && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border rounded-full border-border-default bg-surface-soft text-text-secondary">
                 Tag: {filters.tag}
+                <button
+                  onClick={() => updateFilters({ tag: "" })}
+                  className="hover:text-text-primary"
+                >
+                  <X className="w-3 h-3" />
+                </button>
               </span>
-            ) : null}
+            )}
 
-            {filters.sort !== "featured" ? (
-              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
-                Sort: {filters.sort}
+            {filters.sort !== "featured" && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border rounded-full border-border-default bg-surface-soft text-text-secondary">
+                Sort: {filters.sort === "title-asc" ? "A-Z" : "Z-A"}
+                <button
+                  onClick={() => updateFilters({ sort: "featured" })}
+                  className="hover:text-text-primary"
+                >
+                  <X className="w-3 h-3" />
+                </button>
               </span>
-            ) : null}
+            )}
           </div>
-        ) : null}
+        )}
       </div>
 
+      {/* Results */}
       {filteredBooks.length > 0 ? (
         <BookGrid books={filteredBooks} />
       ) : (
