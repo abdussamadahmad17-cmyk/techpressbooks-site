@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import Button from "@/components/shared/button"
 import { event } from "@/lib/analytics/gtag"
+import { surfaceTokens, textTokens } from "@/lib/theme-tokens"
 
 interface PostEndCtaProps {
   title?: string
@@ -30,13 +31,13 @@ export default function PostEndCta({
   }, []);
 
   return (
-    <section className="space-y-5 rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+    <section className={`${surfaceTokens.glass} space-y-5 p-8 rounded-[2rem]`}>
       <div className="space-y-3">
         <p className="text-sm uppercase tracking-[0.2em] text-red-400">
           Next step
         </p>
-        <h2 className="text-2xl font-semibold text-white">{title}</h2>
-        <p className="text-base leading-8 text-slate-300">{description}</p>
+        <h2 className={textTokens.h3}>{title}</h2>
+        <p className={textTokens.body}>{description}</p>
       </div>
 
       <div className="flex flex-wrap gap-4">

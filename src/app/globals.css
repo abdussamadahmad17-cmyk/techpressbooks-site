@@ -1,11 +1,52 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================
+   THEME SYSTEM - Semantic Token Definitions
+   
+   DO NOT use raw colors in components. Always use these CSS variables.
+   This prevents the Dark-First → Dual-Theme drift that broke your UI.
+   
+   Pattern rule:
+   - Every surface must have BOTH light and dark definition
+   - Every text must have light contrast + dark contrast
+   - Every border must have light and dark variant
+   ============================================================================ */
 
 :root {
   color-scheme: light;
+
+  /* SURFACES - Background layers */
+  --color-surface-default: rgb(255 255 255 / 0.7);      /* bg-white/70 */
+  --color-surface-strong: rgb(255 255 255 / 1);         /* bg-white */
+  --color-surface-soft: rgb(248 250 252 / 1);           /* bg-slate-50 */
+  --color-surface-overlay: rgb(255 255 255 / 0.05);     /* bg-white/5 (for glass effects) */
+
+  /* BORDERS */
+  --color-border-default: rgb(203 213 225 / 0.7);       /* border-slate-200/70 */
+
+  /* TEXT */
+  --color-text-primary: rgb(15 23 42 / 1);              /* text-slate-900 */
+  --color-text-secondary: rgb(71 85 105 / 1);           /* text-slate-600 */
+  --color-text-muted: rgb(100 116 139 / 1);             /* text-slate-500 */
 }
 
 html.dark {
   color-scheme: dark;
+
+  /* SURFACES - Dark mode */
+  --color-surface-default: rgb(255 255 255 / 0.05);     /* dark:bg-white/5 */
+  --color-surface-strong: rgb(2 6 23 / 0.6);            /* dark:bg-slate-950/60 */
+  --color-surface-soft: rgb(15 23 42 / 0.4);            /* dark:bg-slate-950/40 */
+  --color-surface-overlay: rgb(255 255 255 / 0.05);     /* dark:bg-white/5 (same for glass) */
+
+  /* BORDERS */
+  --color-border-default: rgb(255 255 255 / 0.1);       /* dark:border-white/10 */
+
+  /* TEXT */
+  --color-text-primary: rgb(248 250 252 / 1);           /* dark:text-white */
+  --color-text-secondary: rgb(148 163 184 / 1);         /* dark:text-slate-400 */
+  --color-text-muted: rgb(120 113 108 / 1);             /* dark:text-slate-500 (adjusted) */
 }
 
 * {

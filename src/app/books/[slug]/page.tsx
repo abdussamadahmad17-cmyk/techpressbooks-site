@@ -1,6 +1,11 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import BookHero from "@/components/books/book-hero"
+import BookBuyOptions from "@/components/books/book-buy-options"
+import BookResources from "@/components/books/book-resources"
+import BookDownloads from "@/components/books/book-downloads"
+import BookRelatedPosts from "@/components/books/book-related-posts"
+import BookUpdates from "@/components/books/book-updates"
 import RelatedBooks from "@/components/books/related-books"
 import Container from "@/components/layout/container"
 import PortableTextRenderer from "@/components/portable-text/portable-text-renderer"
@@ -99,6 +104,12 @@ export default async function BookDetailPage({ params }: Props) {
           </Container>
         </section>
       ) : null}
+
+      <BookBuyOptions buyOptions={book.buyOptions} />
+      <BookResources resourceLinks={book.resourceLinks} />
+      <BookDownloads downloads={book.downloads} />
+      <BookRelatedPosts relatedPosts={book.relatedPosts} />
+      <BookUpdates updates={book.updates} />
 
       <RelatedBooks books={relatedBooks} />
     </>

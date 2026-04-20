@@ -66,6 +66,39 @@ export const bookBySlugQuery = `
     coverImage,
     isbn,
     amazonUrl,
+    buyOptions[]{
+      label,
+      url,
+      type,
+      isPrimary,
+      priceText,
+      note
+    },
+    resourceLinks[]{
+      title,
+      url,
+      type,
+      description
+    },
+    downloads[]{
+      title,
+      "fileUrl": file.asset->url,
+      description,
+      version
+    },
+    relatedPosts[]-> {
+      title,
+      "slug": slug.current,
+      excerpt,
+      categories[]->{title},
+      tags[]->{title}
+    },
+    updates[]{
+      title,
+      date,
+      type,
+      body
+    },
     featured,
     categories[]->{title},
     tags[]->{title},

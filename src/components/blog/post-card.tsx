@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 import type { Post } from "@/types/post"
 
 interface PostCardProps {
@@ -7,7 +8,7 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <article className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20">
+    <article className={cardPatterns.default()}>
       <div className="space-y-4">
         {post.categories.length > 0 ? (
           <p className="text-xs uppercase tracking-[0.2em] text-red-400">
@@ -16,13 +17,13 @@ export default function PostCard({ post }: PostCardProps) {
         ) : null}
 
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">
+          <h2 className={textTokens.h3}>
             <Link href={`/blog/${post.slug}`} className="hover:text-red-300">
               {post.title}
             </Link>
           </h2>
 
-          <div className="flex flex-wrap gap-3 text-sm text-slate-500">
+          <div className="flex flex-wrap gap-3 text-sm text-text-muted">
             {post.publishedAt ? (
               <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
             ) : null}
@@ -30,7 +31,7 @@ export default function PostCard({ post }: PostCardProps) {
             {post.author ? (
               <Link
                 href={`/authors/${post.author.slug}`}
-                className="transition hover:text-white"
+                className="transition text-text-secondary hover:text-text-primary"
               >
                 By {post.author.name}
               </Link>
@@ -39,12 +40,12 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
 
         {post.excerpt ? (
-          <p className="text-sm leading-7 text-slate-400">{post.excerpt}</p>
+          <p className="text-sm leading-7 text-text-secondary">{post.excerpt}</p>
         ) : null}
 
         <Link
           href={`/blog/${post.slug}`}
-          className="inline-flex text-sm font-medium text-slate-200 transition hover:text-white"
+          className="inline-flex text-sm font-medium text-text-secondary transition hover:text-text-primary"
         >
           Read article →
         </Link>

@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Book } from "@/types/book"
 import { slugifyBookTag } from "@/features/books/tags"
+import { borderTokens, textTokens } from "@/lib/theme-tokens"
 
 function slugifyCategory(value: string): string {
   return value
@@ -20,11 +21,11 @@ export default function BookCard({ book }: BookCardProps) {
   const primaryCategory = book.categories[0]
 
   return (
-    <article className="group rounded-3xl border border-slate-200/70 bg-white p-4 transition duration-300 hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
+    <article className={`group rounded-3xl ${borderTokens.card} bg-white p-4 transition duration-300 hover:shadow-md dark:bg-white/5`}>
       <div className="flex gap-4">
         <Link
           href={`/books/${book.slug}`}
-          className="relative block h-40 w-[110px] shrink-0 overflow-hidden rounded-xl border border-slate-200/70 bg-slate-100 dark:border-white/10 dark:bg-slate-800"
+          className={`relative block h-40 w-[110px] shrink-0 overflow-hidden rounded-xl ${borderTokens.card} bg-slate-100 dark:bg-slate-800`}
         >
           <Image
             src={book.coverImage}

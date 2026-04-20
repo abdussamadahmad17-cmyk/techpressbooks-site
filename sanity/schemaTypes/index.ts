@@ -5,6 +5,10 @@ import { calloutType } from "./objects/calloutType"
 import { faqItemType } from "./objects/faqItemType"
 import { tocItemType } from "./objects/tocItemType"
 import { ctaLinkType } from "./objects/ctaLinkType"
+import { purchaseOptionType } from "./objects/purchaseOptionType"
+import { resourceLinkType } from "./objects/resourceLinkType"
+import { downloadItemType } from "./objects/downloadItemType"
+import { bookUpdateType } from "./objects/bookUpdateType"
 
 import { authorType } from "./documents/authorType"
 import { categoryType } from "./documents/categoryType"
@@ -21,6 +25,10 @@ export const schemaTypes = [
   faqItemType,
   tocItemType,
   ctaLinkType,
+  purchaseOptionType,
+  resourceLinkType,
+  downloadItemType,
+  bookUpdateType,
   authorType,
   categoryType,
   tagType,

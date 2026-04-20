@@ -6,6 +6,7 @@ import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import type { Book } from "@/types/book"
 import { event } from "@/lib/analytics/gtag"
+import { surfaceTokens, textTokens } from "@/lib/theme-tokens"
 
 interface FeaturedBookCtaProps {
   book: Book
@@ -39,8 +40,8 @@ export default function FeaturedBookCta({
   return (
     <section className="py-20 sm:py-24">
       <Container>
-        <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-800">
+        <div className={`grid gap-8 ${surfaceTokens.glass} p-8 rounded-[2rem] lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center`}>
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-border-default bg-surface-soft">
             <Image
               src={book.coverImage}
               alt={book.title}
@@ -56,22 +57,22 @@ export default function FeaturedBookCta({
             </p>
 
             <div className="space-y-3">
-              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              <h2 className={textTokens.h2}>
                 {title}
               </h2>
-              <p className="text-base leading-8 text-slate-300">
+              <p className={textTokens.body}>
                 {description}
               </p>
             </div>
 
-            <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/60 p-5">
-              <p className="text-sm uppercase tracking-[0.18em] text-slate-400">
+            <div className="rounded-[1.5rem] border border-border-default bg-surface-strong p-5">
+              <p className="text-sm uppercase tracking-[0.18em] text-text-secondary">
                 {book.categories[0] ?? "Book"}
               </p>
-              <h3 className="mt-2 text-2xl font-semibold text-white">
+              <h3 className="mt-2 text-2xl font-semibold text-text-primary">
                 {book.title}
               </h3>
-              <p className="mt-2 text-sm leading-7 text-slate-400">
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
                 {book.shortDescription}
               </p>
 

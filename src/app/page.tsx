@@ -54,7 +54,7 @@ export default async function HomePage() {
 
       <section className="py-20 sm:py-24">
         <Container>
-          <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
             <div className="space-y-3">
               <p className="text-sm uppercase tracking-[0.2em] text-red-400">
                 Featured Titles
@@ -66,7 +66,7 @@ export default async function HomePage() {
 
             <Link
               href="/books"
-              className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+              className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             >
               View all books →
             </Link>
@@ -81,7 +81,7 @@ export default async function HomePage() {
       {latestPosts.length > 0 ? (
         <section className="py-20 sm:py-24">
           <Container>
-            <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-3">
                 <p className="text-sm uppercase tracking-[0.2em] text-red-400">
                   Latest Articles
@@ -93,7 +93,7 @@ export default async function HomePage() {
 
               <Link
                 href="/blog"
-                className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
               >
                 Visit the blog →
               </Link>

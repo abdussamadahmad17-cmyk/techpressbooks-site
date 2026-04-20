@@ -60,6 +60,36 @@ export const bookType = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'buyOptions',
+      title: 'Purchase Options',
+      type: 'array',
+      of: [{ type: 'purchaseOption' }],
+    }),
+    defineField({
+      name: 'resourceLinks',
+      title: 'Resource Links',
+      type: 'array',
+      of: [{ type: 'resourceLink' }],
+    }),
+    defineField({
+      name: 'downloads',
+      title: 'Downloads',
+      type: 'array',
+      of: [{ type: 'downloadItem' }],
+    }),
+    defineField({
+      name: 'relatedPosts',
+      title: 'Related Posts',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'post' }] }],
+    }),
+    defineField({
+      name: 'updates',
+      title: 'Updates',
+      type: 'array',
+      of: [{ type: 'bookUpdate' }],
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured',
       type: 'boolean',

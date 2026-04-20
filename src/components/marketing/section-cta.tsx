@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import { event } from "@/lib/analytics/gtag"
+import { surfaceTokens, sectionPatterns, textTokens } from "@/lib/theme-tokens"
 
 interface SectionCtaProps {
   eyebrow?: string
@@ -43,9 +44,9 @@ export default function SectionCta({
   }, [secondaryAction]);
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className={sectionPatterns.cta()}>
       <Container>
-        <div className="rounded-[2rem] border border-white/10 bg-white/5 px-8 py-12 backdrop-blur sm:px-12">
+        <div className={`${surfaceTokens.glass} px-8 py-12 rounded-[2rem] sm:px-12`}>
           <div className="max-w-3xl space-y-5">
             {eyebrow ? (
               <p className="text-sm uppercase tracking-[0.2em] text-red-400">
@@ -53,11 +54,11 @@ export default function SectionCta({
               </p>
             ) : null}
 
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h2 className={textTokens.h2}>
               {title}
             </h2>
 
-            <p className="text-base leading-8 text-slate-300">
+            <p className={textTokens.body}>
               {description}
             </p>
 

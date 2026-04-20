@@ -6,6 +6,7 @@ import type { Book } from "@/types/book"
 import BookGrid from "@/components/books/book-grid"
 import EmptyState from "@/components/shared/empty-state"
 import Button from "@/components/shared/button"
+import { formPatterns, surfaceTokens, textTokens } from "@/lib/theme-tokens"
 import {
   filterBooks,
   getUniqueCategories,
@@ -124,12 +125,12 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-4xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:p-6">
+      <div className={`rounded-4xl ${surfaceTokens.default} p-5 backdrop-blur sm:p-6`}>
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1.5fr)_220px_220px_220px_auto] xl:items-end">
           <div className="space-y-2">
             <label
               htmlFor="book-search"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400"
+              className={formPatterns.label}
             >
               Search
             </label>
@@ -141,14 +142,14 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
                 updateFilters({ query: event.target.value })
               }
               placeholder="Search by title, author, category, or tag"
-              className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-red-500"
+              className={formPatterns.input}
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="book-category"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400"
+              className={formPatterns.label}
             >
               Category
             </label>
@@ -158,7 +159,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
               onChange={(event) =>
                 updateFilters({ category: event.target.value })
               }
-              className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500"
+              className={formPatterns.select}
             >
               <option value="">All categories</option>
               {categories.map((category) => (
@@ -172,7 +173,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
           <div className="space-y-2">
             <label
               htmlFor="book-tag"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400"
+              className={formPatterns.label}
             >
               Tag
             </label>
@@ -180,7 +181,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
               id="book-tag"
               value={filters.tag}
               onChange={(event) => updateFilters({ tag: event.target.value })}
-              className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500"
+              className={formPatterns.select}
             >
               <option value="">All tags</option>
               {tags.map((tag) => (
@@ -194,7 +195,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
           <div className="space-y-2">
             <label
               htmlFor="book-sort"
-              className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400"
+              className={formPatterns.label}
             >
               Sort
             </label>
@@ -206,7 +207,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
                   sort: event.target.value as BookFilterState["sort"]
                 })
               }
-              className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500"
+              className={formPatterns.select}
             >
               <option value="featured">Featured first</option>
               <option value="title-asc">Title A–Z</option>
@@ -218,7 +219,7 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
             type="button"
             onClick={resetFilters}
             disabled={!hasActiveFilters}
-            className="inline-flex h-12 items-center justify-center rounded-2xl border border-white/10 px-5 text-sm font-medium text-slate-200 transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center justify-center h-12 px-5 text-sm font-medium transition border rounded-2xl border-border-default bg-surface-strong text-text-primary hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Clear
           </button>
@@ -226,36 +227,36 @@ export default function BookDiscovery({ books }: BookDiscoveryProps) {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-slate-400">
-          Showing <span className="font-medium text-white">{filteredBooks.length}</span>{" "}
-          of <span className="font-medium text-white">{books.length}</span> books
+        <p className="text-sm text-text-secondary">
+          Showing <span className="font-medium text-text-primary">{filteredBooks.length}</span>{" "}
+          of <span className="font-medium text-text-primary">{books.length}</span> books
           {isPending ? (
-            <span className="ml-2 text-slate-500">Updating…</span>
+            <span className="ml-2 text-text-muted">Updating…</span>
           ) : null}
         </p>
 
         {hasActiveFilters ? (
           <div className="flex flex-wrap gap-2">
             {filters.query ? (
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
                 Search: {filters.query}
               </span>
             ) : null}
 
             {filters.category ? (
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
                 Category: {filters.category}
               </span>
             ) : null}
 
             {filters.tag ? (
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
                 Tag: {filters.tag}
               </span>
             ) : null}
 
             {filters.sort !== "featured" ? (
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+              <span className="px-3 py-1 text-xs border rounded-full border-border-default bg-surface-default text-text-secondary">
                 Sort: {filters.sort}
               </span>
             ) : null}

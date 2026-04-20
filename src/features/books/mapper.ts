@@ -23,6 +23,45 @@ export function mapSanityBookToBook(book: SanityBook): Book {
     coverImage,
     isbn: book.isbn,
     amazonUrl: book.amazonUrl,
+    buyOptions: book.buyOptions?.map((option) => ({
+      label: option.label ?? '',
+      url: option.url ?? '',
+      type: option.type,
+      isPrimary: option.isPrimary,
+      priceText: option.priceText,
+      note: option.note
+    })),
+    resourceLinks: book.resourceLinks?.map((resource) => ({
+      title: resource.title ?? '',
+      url: resource.url ?? '',
+      type: resource.type,
+      description: resource.description
+    })),
+    downloads: book.downloads?.map((download) => ({
+      title: download.title ?? '',
+      fileUrl: download.fileUrl ?? '',
+      description: download.description,
+      version: download.version
+    })),
+
+    relatedPosts: book.relatedPosts?.map((post) => ({
+      title: post.title ?? '',
+      slug: post.slug ?? '',
+      excerpt: post.excerpt,
+      categories: (post.categories ?? [])
+        .map((item) => item.title)
+        .filter((value): value is string => Boolean(value)),
+      tags: (post.tags ?? [])
+        .map((item) => item.title)
+        .filter((value): value is string => Boolean(value)),
+      relatedBooks: []
+    })),
+    updates: book.updates?.map((update) => ({
+      title: update.title ?? '',
+      date: update.date ?? '',
+      type: update.type,
+      body: update.body ?? ''
+    })),
     featured: Boolean(book.featured),
     categories: (book.categories ?? [])
       .map((item) => item.title)
