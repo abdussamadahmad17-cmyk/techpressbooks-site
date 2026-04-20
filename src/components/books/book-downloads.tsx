@@ -21,7 +21,7 @@ export default function BookDownloads({ downloads }: BookDownloadsProps) {
         {downloads.map((item) => (
           <article
             key={`${item.title}-${item.fileUrl}`}
-            className="rounded-3xl border border-slate-200/70 bg-white/70 p-5 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+            className="rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-5 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">

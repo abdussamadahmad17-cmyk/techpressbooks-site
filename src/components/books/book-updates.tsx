@@ -27,7 +27,7 @@ export default function BookUpdates({ updates }: BookUpdatesProps) {
                 <p className="text-xs uppercase tracking-[0.18em] text-red-400">
                   {update.type ?? "update"}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-500">
                   {new Date(update.date).toLocaleDateString()}
                 </p>
               </div>

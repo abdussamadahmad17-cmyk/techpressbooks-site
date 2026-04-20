@@ -21,7 +21,7 @@ export default function BookResources({ resources }: BookResourcesProps) {
         {resources.map((resource) => (
           <article
             key={`${resource.title}-${resource.url}`}
-            className="rounded-3xl border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+            className="rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
           >
             <div className="space-y-4">
               <div className="space-y-2">

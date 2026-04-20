@@ -11,16 +11,16 @@ export default function BookBuyOptions({ book }: BookBuyOptionsProps) {
     book.buyOptions && book.buyOptions.length > 0
       ? book.buyOptions
       : book.amazonUrl
-      ? [
-          {
-            label: "Buy on Amazon",
-            url: book.amazonUrl,
-            type: "physical",
-            isPrimary: true,
-            note: "Print edition"
-          } satisfies PurchaseOption
-        ]
-      : []
+        ? [
+            {
+              label: "Buy on Amazon",
+              url: book.amazonUrl,
+              type: "physical",
+              isPrimary: true,
+              note: "Print edition"
+            } satisfies PurchaseOption
+          ]
+        : []
 
   if (buyOptions.length === 0) {
     return null
@@ -37,7 +37,7 @@ export default function BookBuyOptions({ book }: BookBuyOptionsProps) {
           <article
             key={`${option.label}-${option.url}`}
             className={[
-              "rounded-3xl border p-6 backdrop-blur transition",
+              "rounded-[1.5rem] border p-6 backdrop-blur transition",
               option.isPrimary
                 ? "border-red-500/40 bg-red-500/10 shadow-sm"
                 : "border-slate-200/70 bg-white/70 dark:border-white/10 dark:bg-white/5"
