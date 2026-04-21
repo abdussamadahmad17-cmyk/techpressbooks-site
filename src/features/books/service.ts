@@ -17,40 +17,60 @@ import {
 } from './categories'
 
 export async function getAllBooks(): Promise<Book[]> {
-  const books = await sanityFetch<SanityBook[]>({
-    query: allBooksQuery,
-  })
+  try {
+    const books = await sanityFetch<SanityBook[]>({
+      query: allBooksQuery,
+    })
 
-  return books.map(mapSanityBookToBook)
+    return books.map(mapSanityBookToBook)
+  } catch (error) {
+    console.warn('Failed to fetch books from Sanity:', error)
+    return []
+  }
 }
 
 export async function getFeaturedBooks(): Promise<Book[]> {
-  const books = await sanityFetch<SanityBook[]>({
-    query: featuredBooksQuery,
-  })
+  try {
+    const books = await sanityFetch<SanityBook[]>({
+      query: featuredBooksQuery,
+    })
 
-  return books.map(mapSanityBookToBook)
+    return books.map(mapSanityBookToBook)
+  } catch (error) {
+    console.warn('Failed to fetch featured books from Sanity:', error)
+    return []
+  }
 }
 
 export async function getBookBySlug(slug: string): Promise<Book | null> {
-  const book = await sanityFetch<SanityBook | null>({
-    query: bookBySlugQuery,
-    params: { slug },
-  })
+  try {
+    const book = await sanityFetch<SanityBook | null>({
+      query: bookBySlugQuery,
+      params: { slug },
+    })
 
-  if (!book) {
+    if (!book) {
+      return null
+    }
+
+    return mapSanityBookToBook(book)
+  } catch (error) {
+    console.warn('Failed to fetch book from Sanity:', error)
     return null
   }
-
-  return mapSanityBookToBook(book)
 }
 
 export async function getAllBookSlugs(): Promise<string[]> {
-  const slugs = await sanityFetch<Array<{ slug: string }>>({
-    query: allBookSlugsQuery,
-  })
+  try {
+    const slugs = await sanityFetch<Array<{ slug: string }>>({
+      query: allBookSlugsQuery,
+    })
 
-  return slugs.map((item) => item.slug)
+    return slugs.map((item) => item.slug)
+  } catch (error) {
+    console.warn('Failed to fetch book slugs from Sanity:', error)
+    return []
+  }
 }
 
 // Category-related functions
