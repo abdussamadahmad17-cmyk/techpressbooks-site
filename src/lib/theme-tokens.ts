@@ -119,6 +119,9 @@ export const textTokens = {
   /** Body large - more spacious */
   bodyLarge: 'text-lg leading-8 text-text-secondary',
 
+  /** Lead text - large intro/summary (blog posts, landing) */
+  lead: 'text-lg sm:text-xl leading-relaxed text-text-secondary',
+
   /** Small text (captions, labels) */
   sm: 'text-sm leading-6 text-text-secondary',
 
@@ -300,7 +303,7 @@ export function buildThemeClass(...classes: (string | undefined)[]): string {
  * │   <h3 className={textTokens.h3}>{title}</h3>            │
  * │   <p className={textTokens.sm}>{description}</p>        │
  * │ </div>                                                  │
- * └─────────────────────────────────────────────────────────┘
+ * └───────────────���─────────────────────────────────────────┘
  *
  * ┌─────────────────────────────────────────────────────────┐
  * │ SECTION HEADER                                           │

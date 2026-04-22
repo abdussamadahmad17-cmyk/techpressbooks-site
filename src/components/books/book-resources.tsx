@@ -1,9 +1,17 @@
 import Link from "next/link"
+import { Github, BookMarked, Globe } from "lucide-react"
 import BookHubSection from "@/components/books/book-hub-section"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 import type { ResourceLink } from "@/types/book"
 
 interface BookResourcesProps {
   resources?: ResourceLink[]
+}
+
+const typeIcons: Record<string, React.ReactNode> = {
+  github: <Github className="w-5 h-5" />,
+  documentation: <BookMarked className="w-5 h-5" />,
+  website: <Globe className="w-5 h-5" />
 }
 
 export default function BookResources({ resources }: BookResourcesProps) {
@@ -17,39 +25,45 @@ export default function BookResources({ resources }: BookResourcesProps) {
       title="Companion resources and code"
       description="Explore repositories, technical documentation, and companion materials related to this book."
     >
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {resources.map((resource) => (
           <article
             key={`${resource.title}-${resource.url}`}
-            className="rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
+            className={cardPatterns.default()}
           >
             <div className="space-y-4">
-              <div className="space-y-2">
-                {resource.type ? (
-                  <p className="text-xs uppercase tracking-[0.18em] text-red-400">
-                    {resource.type}
-                  </p>
+              <div className="flex gap-3 items-start">
+                {resource.type && typeIcons[resource.type] ? (
+                  <div className="text-brand-primary flex-shrink-0 mt-1">
+                    {typeIcons[resource.type]}
+                  </div>
                 ) : null}
-
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                  {resource.title}
-                </h3>
-
-                {resource.description ? (
-                  <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
-                    {resource.description}
-                  </p>
-                ) : null}
+                <div className="flex-1 min-w-0">
+                  {resource.type ? (
+                    <p className={`${textTokens.xs} text-text-muted mb-2`}>
+                      {resource.type}
+                    </p>
+                  ) : null}
+                  <h3 className={textTokens.h4}>
+                    {resource.title}
+                  </h3>
+                </div>
               </div>
 
-              <Link
+              {resource.description ? (
+                <p className={`${textTokens.sm} text-text-secondary leading-relaxed`}>
+                  {resource.description}
+                </p>
+              ) : null}
+
+              <a
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-xl border border-slate-200/70 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary hover:text-brand-light transition"
               >
-                Open resource
-              </Link>
+                View resource →
+              </a>
             </div>
           </article>
         ))}
