@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, BookMarked, Globe } from "lucide-react"
+import { Code2, BookOpen, Globe } from "lucide-react"
 import BookHubSection from "@/components/books/book-hub-section"
 import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 import type { ResourceLink } from "@/types/book"
@@ -9,8 +9,8 @@ interface BookResourcesProps {
 }
 
 const typeIcons: Record<string, React.ReactNode> = {
-  github: <Github className="w-5 h-5" />,
-  documentation: <BookMarked className="w-5 h-5" />,
+  github: <Code2 className="w-5 h-5" />,
+  documentation: <BookOpen className="w-5 h-5" />,
   website: <Globe className="w-5 h-5" />
 }
 
