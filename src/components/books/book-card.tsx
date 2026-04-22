@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Book } from "@/types/book"
 import { slugifyBookTag } from "@/features/books/tags"
-import { borderTokens, textTokens } from "@/lib/theme-tokens"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 
 function slugifyCategory(value: string): string {
   return value
@@ -21,73 +21,78 @@ export default function BookCard({ book }: BookCardProps) {
   const primaryCategory = book.categories[0]
 
   return (
-    <article className={`group rounded-3xl ${borderTokens.card} bg-white p-4 transition duration-300 hover:shadow-md dark:bg-white/5`}>
-      <div className="flex gap-4">
+    <article className={`group ${cardPatterns.elevated()}`}>
+      <div className="flex flex-col gap-5">
+        {/* Cover Image */}
         <Link
           href={`/books/${book.slug}`}
-          className={`relative block h-40 w-[110px] shrink-0 overflow-hidden rounded-xl ${borderTokens.card} bg-slate-100 dark:bg-slate-800`}
+          className="relative aspect-[3/4] overflow-hidden rounded-premium bg-surface-soft border border-border-subtle"
         >
           <Image
             src={book.coverImage}
             alt={book.title}
             fill
-            sizes="110px"
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            sizes="100%"
+            className="object-cover transition duration-500 group-hover:scale-105"
           />
         </Link>
 
-        <div className="min-w-0 flex-1 space-y-3">
+        {/* Content */}
+        <div className="space-y-4">
+          {/* Category */}
+          {primaryCategory ? (
+            <Link
+              href={`/categories/${slugifyCategory(primaryCategory)}`}
+              className="inline-block text-xs font-semibold tracking-widest text-brand-primary uppercase transition hover:text-brand-light"
+            >
+              {primaryCategory}
+            </Link>
+          ) : null}
+
+          {/* Title & Subtitle */}
           <div className="space-y-2">
-            {primaryCategory ? (
+            <h3 className={`${textTokens.h4} line-clamp-3`}>
               <Link
-                href={`/categories/${slugifyCategory(primaryCategory)}`}
-                className="inline-block text-[11px] uppercase tracking-[0.2em] text-red-400 hover:text-red-300"
+                href={`/books/${book.slug}`}
+                className="transition hover:text-brand-primary"
               >
-                {primaryCategory}
+                {book.title}
               </Link>
+            </h3>
+
+            {book.subtitle ? (
+              <p className={`${textTokens.sm} text-text-secondary line-clamp-2`}>
+                {book.subtitle}
+              </p>
             ) : null}
-
-            <div className="space-y-1">
-              <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
-                <Link
-                  href={`/books/${book.slug}`}
-                  className="transition hover:text-red-500 dark:hover:text-red-300"
-                >
-                  {book.title}
-                </Link>
-              </h3>
-
-              {book.subtitle ? (
-                <p className="line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                  {book.subtitle}
-                </p>
-              ) : null}
-
-              {book.author ? (
-                <p className="text-sm text-slate-700 dark:text-slate-300">
-                  By{" "}
-                  <Link
-                    href={`/authors/${book.author.slug}`}
-                    className="transition hover:text-slate-900 dark:hover:text-white"
-                  >
-                    {book.author.name}
-                  </Link>
-                </p>
-              ) : null}
-            </div>
           </div>
 
-          <p className="line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+          {/* Author */}
+          {book.author ? (
+            <p className={`${textTokens.sm} text-text-secondary`}>
+              By{" "}
+              <Link
+                href={`/authors/${book.author.slug}`}
+                className="font-semibold text-text-primary transition hover:text-brand-primary"
+              >
+                {book.author.name}
+              </Link>
+            </p>
+          ) : null}
+
+          {/* Description */}
+          <p className={`${textTokens.sm} text-text-secondary line-clamp-3 leading-relaxed`}>
             {book.shortDescription}
           </p>
 
+          {/* Tags */}
           {book.tags.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {book.tags.slice(0, 3).map((tag) => (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {book.tags.slice(0, 2).map((tag) => (
                 <Link
                   key={tag}
                   href={`/tags/${slugifyBookTag(tag)}`}
-                  className="rounded-full border border-slate-200/50 bg-slate-50 px-2.5 py-1 text-[11px] text-slate-600 transition hover:border-slate-300 hover:bg-slate-100 hover:text-slate-800 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:text-white"
+                  className="rounded-premium border border-border-subtle bg-surface-soft px-3 py-1.5 text-xs text-text-secondary transition hover:border-border-accent hover:bg-surface-strong"
                 >
                   {tag}
                 </Link>
@@ -95,12 +100,14 @@ export default function BookCard({ book }: BookCardProps) {
             </div>
           ) : null}
 
-          <div className="flex flex-wrap gap-3 pt-1">
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-3 pt-4 border-t border-border-subtle">
             <Link
               href={`/books/${book.slug}`}
-              className="inline-flex rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-500"
+              className="inline-flex rounded-premium bg-brand-primary text-white text-sm font-semibold px-4 py-2.5 transition hover:shadow-lg hover:bg-opacity-90"
             >
               View book
+              <span aria-hidden="true">→</span>
             </Link>
 
             {book.amazonUrl ? (
@@ -108,7 +115,7 @@ export default function BookCard({ book }: BookCardProps) {
                 href={book.amazonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10"
+                className="inline-flex rounded-premium border border-brand-primary text-brand-primary text-sm font-semibold px-4 py-2.5 transition hover:bg-brand-primary hover:text-white"
               >
                 Buy on Amazon
               </Link>

@@ -1,4 +1,5 @@
 import Container from "@/components/layout/container"
+import { textTokens } from "@/lib/theme-tokens"
 
 interface BookHubSectionProps {
   eyebrow?: string
@@ -14,22 +15,22 @@ export default function BookHubSection({
   children
 }: BookHubSectionProps) {
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-20 sm:py-28 border-b border-border-default">
       <Container>
-        <div className="space-y-8">
-          <div className="max-w-3xl space-y-3">
+        <div className="space-y-12">
+          <div className="max-w-3xl space-y-4">
             {eyebrow ? (
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+              <p className={textTokens.meta}>
                 {eyebrow}
               </p>
             ) : null}
 
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h2 className={textTokens.h2}>
               {title}
             </h2>
 
             {description ? (
-              <p className="text-base leading-8 text-slate-600 dark:text-slate-400">
+              <p className={`${textTokens.body} text-text-secondary max-w-2xl`}>
                 {description}
               </p>
             ) : null}

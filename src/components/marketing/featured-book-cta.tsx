@@ -2,11 +2,12 @@
 
 import { useCallback } from 'react';
 import Image from "next/image"
+import { ArrowRight, Star, ShoppingCart } from 'lucide-react';
 import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import type { Book } from "@/types/book"
 import { event } from "@/lib/analytics/gtag"
-import { surfaceTokens, textTokens } from "@/lib/theme-tokens"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 
 interface FeaturedBookCtaProps {
   book: Book
@@ -38,61 +39,77 @@ export default function FeaturedBookCta({
   }, [book.title]);
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
       <Container>
-        <div className={`grid gap-8 ${surfaceTokens.glass} p-8 rounded-[2rem] lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center`}>
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-border-default bg-surface-soft">
-            <Image
-              src={book.coverImage}
-              alt={book.title}
-              fill
-              sizes="220px"
-              className="object-cover"
-            />
+        <div className={`grid gap-12 ${cardPatterns.elevated()} lg:grid-cols-[300px_minmax(0,1fr)] lg:items-center lg:gap-16 bg-gradient-to-br from-brand-primary/5 to-transparent`}>
+          {/* Book Cover with Enhanced Styling */}
+          <div className="relative">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium border border-border-default bg-surface-soft shadow-2xl">
+              <Image
+                src={book.coverImage}
+                alt={book.title}
+                fill
+                sizes="300px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-lg-premium" />
+            </div>
           </div>
 
-          <div className="space-y-5">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-              {eyebrow}
-            </p>
+          {/* Content Section */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-premium bg-brand-primary/10">
+              <Star className="w-4 h-4 text-brand-primary" />
+              <p className={`${textTokens.xs} text-brand-primary font-semibold`}>
+                {eyebrow}
+              </p>
+            </div>
 
-            <div className="space-y-3">
+            <div className="space-y-6">
               <h2 className={textTokens.h2}>
                 {title}
               </h2>
-              <p className={textTokens.body}>
+              <p className={`${textTokens.bodyLarge} text-text-secondary leading-relaxed`}>
                 {description}
               </p>
             </div>
 
-            <div className="rounded-[1.5rem] border border-border-default bg-surface-strong p-5">
-              <p className="text-sm uppercase tracking-[0.18em] text-text-secondary">
-                {book.categories[0] ?? "Book"}
-              </p>
-              <h3 className="mt-2 text-2xl font-semibold text-text-primary">
-                {book.title}
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-text-secondary">
+            {/* Book Preview Card */}
+            <div className="rounded-lg-premium border border-border-default bg-surface-strong p-8 space-y-6">
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-premium bg-brand-primary/10 text-brand-primary text-xs font-semibold">
+                    {book.categories[0] ?? "Technical"}
+                  </span>
+                </div>
+                <h3 className={textTokens.h4}>
+                  {book.title}
+                </h3>
+              </div>
+
+              <p className={`${textTokens.sm} text-text-secondary leading-relaxed`}>
                 {book.shortDescription}
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Button 
+              <div className="flex flex-wrap gap-3 pt-4 border-t border-border-subtle">
+                <a 
                   href={`/books/${book.slug}`} 
-                  variant="primary"
+                  className="inline-flex items-center gap-2 rounded-premium bg-brand-primary text-white text-sm font-semibold px-6 py-3 transition hover:shadow-lg hover:bg-opacity-90 group"
                   onClick={handleViewBook}
                 >
                   View book
-                </Button>
+                  <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
+                </a>
 
                 {book.amazonUrl ? (
-                  <Button 
+                  <a 
                     href={book.amazonUrl} 
-                    variant="secondary"
+                    className="inline-flex items-center gap-2 rounded-premium border-2 border-brand-primary text-brand-primary text-sm font-semibold px-6 py-3 transition hover:bg-brand-primary hover:text-white hover:shadow-lg"
                     onClick={handleBuyBook}
                   >
-                    Buy on Amazon
-                  </Button>
+                    <ShoppingCart className="w-4 h-4" />
+                    Buy Now
+                  </a>
                 ) : null}
               </div>
             </div>

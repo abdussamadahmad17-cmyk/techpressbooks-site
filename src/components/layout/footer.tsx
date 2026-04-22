@@ -1,6 +1,8 @@
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 import type { SiteSettings } from "@/types/site-settings"
 
 interface FooterProps {
@@ -32,57 +34,74 @@ const footerSections = {
 
 export default function Footer({ siteSettings }: FooterProps) {
   return (
-    <footer className="border-t border-slate-200/70 bg-slate-50 dark:border-white/10 dark:bg-slate-950">
-      <Container className="py-12">
-        <div className="mb-12 rounded-4xl border border-slate-200/70 bg-white/70 p-8 backdrop-blur dark:border-white/10 dark:bg-white/5">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl space-y-3">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+    <footer className="border-t border-border-default bg-surface-soft">
+      <Container className="py-20 sm:py-28">
+        {/* CTA Section */}
+        <div className={`${cardPatterns.elevated()} mb-16 bg-gradient-to-br from-brand-primary/5 to-brand-primary/2 border-2 border-brand-primary`}>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl space-y-4">
+              <p className={textTokens.meta}>
                 Explore the platform
               </p>
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+              <h2 className={textTokens.h2}>
                 Practical technical publishing for modern engineers
               </h2>
-              <p className="text-sm leading-7 text-slate-600 dark:text-slate-400">
-                Browse books, read technical articles, explore authors, and
-                discover content by topic and category.
+              <p className={`${textTokens.body} text-text-secondary max-w-xl`}>
+                Browse books, read technical articles, explore authors, and discover content by topic and category.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 flex-shrink-0">
               <Button href="/books" variant="primary">
                 Browse Books
               </Button>
               <Button href="/blog" variant="secondary">
                 Read the Blog
               </Button>
-              <Button href="/become-an-author" variant="secondary">
-                Become an Author
-              </Button>
             </div>
           </div>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+        {/* Footer Grid */}
+        <div className="mb-12 grid gap-12 md:grid-cols-2 xl:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+          {/* Brand */}
           <div className="space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-900 dark:text-white">
-              {siteSettings.siteTitle}
-            </p>
-            <p className="max-w-md text-sm leading-7 text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-2">
+              <div className="h-2.5 w-2.5 rounded-full bg-brand-primary" />
+              <p className={`${textTokens.xs} text-text-primary`}>
+                {siteSettings.siteTitle}
+              </p>
+            </div>
+            <p className={`${textTokens.sm} max-w-md text-text-secondary leading-relaxed`}>
               {siteSettings.footerText}
             </p>
           </div>
 
+          {/* Navigation Sections */}
           <FooterColumn title="Explore" links={footerSections.explore} />
           <FooterColumn title="Contributors" links={footerSections.contributors} />
           <FooterColumn title="Company" links={footerSections.company} />
           <FooterColumn title="Legal" links={footerSections.legal} />
         </div>
 
-        <div className="mt-10 border-t border-slate-200/70 pt-6 dark:border-white/10">
-          <p className="text-xs text-slate-600 dark:text-slate-500">
-            © {new Date().getFullYear()} {siteSettings.siteTitle}. All rights reserved.
-          </p>
+        {/* Bottom */}
+        <div className="border-t border-border-default pt-8 space-y-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className={`${textTokens.xs} text-text-muted`}>
+              © {new Date().getFullYear()} {siteSettings.siteTitle}. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <a href="#" className={`${textTokens.xs} text-text-muted hover:text-brand-primary transition`}>
+                GitHub
+              </a>
+              <a href="#" className={`${textTokens.xs} text-text-muted hover:text-brand-primary transition`}>
+                Twitter
+              </a>
+              <a href="#" className={`${textTokens.xs} text-text-muted hover:text-brand-primary transition`}>
+                LinkedIn
+              </a>
+            </div>
+          </div>
         </div>
       </Container>
     </footer>
@@ -99,17 +118,17 @@ interface FooterColumnProps {
 
 function FooterColumn({ title, links }: FooterColumnProps) {
   return (
-    <div>
-      <p className="mb-4 text-xs uppercase tracking-[0.2em] text-red-400">
+    <div className="space-y-4">
+      <p className={textTokens.meta}>
         {title}
       </p>
 
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-col gap-2.5">
         {links.map((item) => (
           <Link
             key={`${title}-${item.label}-${item.href}`}
             href={item.href}
-            className="text-sm text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className={`${textTokens.sm} text-text-secondary transition hover:text-brand-primary`}
           >
             {item.label}
           </Link>

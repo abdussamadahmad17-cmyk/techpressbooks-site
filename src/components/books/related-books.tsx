@@ -1,6 +1,7 @@
 import type { Book } from "@/types/book"
 import Container from "@/components/layout/container"
 import BookGrid from "@/components/books/book-grid"
+import { textTokens } from "@/lib/theme-tokens"
 
 interface RelatedBooksProps {
   books: Book[]
@@ -12,17 +13,17 @@ export default function RelatedBooks({ books }: RelatedBooksProps) {
   }
 
   return (
-    <section className="pb-24">
+    <section className="py-24 sm:py-32">
       <Container>
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+        <div className="space-y-12">
+          <div className="max-w-3xl space-y-4">
+            <p className={textTokens.meta}>
               Related Titles
             </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h2 className={textTokens.h2}>
               Continue exploring
             </h2>
-            <p className="max-w-2xl text-slate-600 dark:text-slate-400">
+            <p className={`${textTokens.body} text-text-secondary max-w-2xl`}>
               More books related to this topic and technical domain.
             </p>
           </div>

@@ -1,9 +1,11 @@
 'use client';
 
 import { useCallback } from 'react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
 import { event } from "@/lib/analytics/gtag"
+import { textTokens, ctaPatterns } from "@/lib/theme-tokens"
 
 interface HeroSectionProps {
   siteDescription: string
@@ -31,42 +33,46 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
   }, []);
 
   return (
-    <section className="relative py-24 overflow-hidden border-b border-white/10 sm:py-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,0.10),transparent_25%),radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_30%)]" />
-
+    <section className="relative py-32 overflow-hidden border-b border-border-default sm:py-40 lg:py-48">
       <Container className="relative">
-        <div className="max-w-3xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em]">
-            Premium Technical Publishing
+        <div className="max-w-4xl space-y-12">
+          {/* Premium badge with enhanced styling */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-premium border border-brand-primary/30 bg-gradient-to-r from-brand-primary/10 to-brand-primary/5 shadow-sm">
+            <Sparkles className="w-4 h-4 text-brand-primary" />
+            <span className="text-xs font-semibold tracking-widest text-brand-primary uppercase">
+              Premium Technical Publishing
+            </span>
           </div>
 
-          <div className="space-y-6">
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+          {/* Hero headline with improved spacing */}
+          <div className="space-y-8">
+            <h1 className={`${textTokens.heroTitle}`}>
               Engineering knowledge for the real world.
             </h1>
 
-            <p className="max-w-2xl text-lg leading-8 sm:text-xl">
+            <p className="max-w-3xl text-lg leading-relaxed text-text-secondary sm:text-xl">
               {siteDescription}
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              href={primaryCta.href} 
-              variant="primary" 
-              size="lg"
+          {/* Enhanced CTA buttons with icons */}
+          <div className="flex flex-wrap gap-4 pt-6">
+            <a
+              href={primaryCta.href}
+              className={`${ctaPatterns.primary()} inline-flex items-center gap-2 group`}
               onClick={handlePrimaryCta}
             >
               {primaryCta.label}
-            </Button>
-            <Button 
-              href="/blog" 
-              variant="secondary" 
-              size="lg"
+              <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
+            </a>
+            <a
+              href="/blog"
+              className={`${ctaPatterns.secondary()} inline-flex items-center gap-2`}
               onClick={handleBlogCta}
             >
               Read the blog
-            </Button>
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </Container>

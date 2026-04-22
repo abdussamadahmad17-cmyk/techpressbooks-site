@@ -4,6 +4,7 @@ import Container from "@/components/layout/container"
 import PageHeader from "@/components/layout/page-header"
 import BookDiscovery from "@/components/books/book-discovery"
 import { getAllBooks } from "@/features/books/service"
+import { textTokens } from "@/lib/theme-tokens"
 
 export const metadata: Metadata = {
   title: "Books",
@@ -21,9 +22,9 @@ export default async function BooksPage() {
         description="Explore premium technical books for cybersecurity, system design, automation, and AI engineering."
       />
 
-      <section className="py-14 sm:py-16">
+      <section className="py-24 sm:py-32">
         <Container>
-          <Suspense fallback={<div className="py-12 text-center text-slate-400">Loading filters...</div>}>
+          <Suspense fallback={<div className="py-12 text-center text-text-muted">{textTokens.sm}</div>}>
             <BookDiscovery books={books} />
           </Suspense>
         </Container>

@@ -27,16 +27,16 @@ type ButtonProps = LinkButtonProps | NativeButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-red-600 text-white hover:bg-red-500 shadow-[0_10px_30px_rgba(127,29,29,0.35)]",
+    "bg-brand-primary text-white hover:shadow-lg hover:bg-opacity-90 transition duration-300",
   secondary:
-    "border border-slate-200/70 bg-slate-50 text-slate-900 hover:bg-slate-100 hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/10",
-  ghost: "text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5"
+    "border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition duration-300",
+  ghost: "text-brand-primary hover:text-brand-light transition duration-300"
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-3 py-2 text-sm rounded-xl",
-  md: "px-5 py-3 text-sm rounded-2xl",
-  lg: "px-6 py-3.5 text-sm rounded-2xl"
+  sm: "px-3 py-2 text-sm rounded-premium",
+  md: "px-5 py-3 text-sm rounded-lg-premium font-semibold",
+  lg: "px-6 py-3.5 text-base rounded-lg-premium font-semibold"
 }
 
 export default function Button(props: ButtonProps) {

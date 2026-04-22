@@ -2,7 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================================================
-   THEME SYSTEM - Semantic Token Definitions
+   PREMIUM THEME SYSTEM - Semantic Token Definitions
    
    DO NOT use raw colors in components. Always use these CSS variables.
    This prevents the Dark-First → Dual-Theme drift that broke your UI.
@@ -16,37 +16,73 @@
 :root {
   color-scheme: light;
 
-  /* SURFACES - Background layers */
-  --color-surface-default: rgb(255 255 255 / 0.7);      /* bg-white/70 */
-  --color-surface-strong: rgb(255 255 255 / 1);         /* bg-white */
-  --color-surface-soft: rgb(248 250 252 / 1);           /* bg-slate-50 */
-  --color-surface-overlay: rgb(255 255 255 / 0.05);     /* bg-white/5 (for glass effects) */
+  /* PRIMARY BRAND - Deep blue for authority & trust */
+  --color-brand-primary: rgb(30 58 138 / 1);            /* deep-blue */
+  --color-brand-light: rgb(59 130 246 / 1);             /* lighter blue */
 
-  /* BORDERS */
-  --color-border-default: rgb(203 213 225 / 0.7);       /* border-slate-200/70 */
+  /* SURFACES - Background layers - refined for premium feel */
+  --color-surface-default: rgb(255 255 255 / 1);        /* pure white */
+  --color-surface-strong: rgb(255 255 255 / 1);         /* pure white */
+  --color-surface-soft: rgb(250 251 253 / 1);           /* near-white */
+  --color-surface-overlay: rgb(255 255 255 / 0.08);     /* white/8 for glass effects */
 
-  /* TEXT */
-  --color-text-primary: rgb(15 23 42 / 1);              /* text-slate-900 */
-  --color-text-secondary: rgb(71 85 105 / 1);           /* text-slate-600 */
-  --color-text-muted: rgb(100 116 139 / 1);             /* text-slate-500 */
+  /* BORDERS - More refined, subtle */
+  --color-border-default: rgb(226 232 240 / 1);         /* slate-200 - clean, sophisticated */
+  --color-border-subtle: rgb(241 245 249 / 1);          /* slate-100 - very subtle */
+  --color-border-accent: rgb(30 58 138 / 0.2);          /* brand with low opacity */
+
+  /* TEXT - Refined hierarchy */
+  --color-text-primary: rgb(15 23 42 / 1);              /* slate-900 - deep, readable */
+  --color-text-secondary: rgb(71 85 105 / 1);           /* slate-600 - supportive */
+  --color-text-muted: rgb(100 116 139 / 1);             /* slate-500 - tertiary */
+
+  /* ACCENTS - Minimal, refined */
+  --color-accent-success: rgb(34 197 94 / 1);           /* green */
+  --color-accent-warning: rgb(234 179 8 / 1);           /* amber */
+  --color-accent-error: rgb(239 68 68 / 1);             /* red */
+
+  /* SHADOW SYSTEM - Premium depth */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-elevation: 0 25px 50px -12px rgb(0 0 0 / 0.15);
 }
 
 html.dark {
   color-scheme: dark;
 
-  /* SURFACES - Dark mode */
-  --color-surface-default: rgb(255 255 255 / 0.05);     /* dark:bg-white/5 */
-  --color-surface-strong: rgb(2 6 23 / 0.6);            /* dark:bg-slate-950/60 */
-  --color-surface-soft: rgb(15 23 42 / 0.4);            /* dark:bg-slate-950/40 */
-  --color-surface-overlay: rgb(255 255 255 / 0.05);     /* dark:bg-white/5 (same for glass) */
+  /* BRAND */
+  --color-brand-primary: rgb(96 165 250 / 1);           /* lighter in dark mode */
+  --color-brand-light: rgb(147 197 253 / 1);            /* even lighter */
+
+  /* SURFACES - Dark mode refined */
+  --color-surface-default: rgb(15 23 42 / 1);           /* slate-900 - deep dark */
+  --color-surface-strong: rgb(30 41 59 / 1);            /* slate-800 - slightly lighter */
+  --color-surface-soft: rgb(51 65 85 / 1);              /* slate-700 - accessible secondary */
+  --color-surface-overlay: rgb(255 255 255 / 0.08);     /* white/8 (consistent glass) */
 
   /* BORDERS */
-  --color-border-default: rgb(255 255 255 / 0.1);       /* dark:border-white/10 */
+  --color-border-default: rgb(51 65 85 / 1);            /* slate-700 */
+  --color-border-subtle: rgb(30 41 59 / 1);             /* slate-800 */
+  --color-border-accent: rgb(96 165 250 / 0.3);         /* brand lighter with opacity */
 
   /* TEXT */
-  --color-text-primary: rgb(248 250 252 / 1);           /* dark:text-white */
-  --color-text-secondary: rgb(148 163 184 / 1);         /* dark:text-slate-400 */
-  --color-text-muted: rgb(120 113 108 / 1);             /* dark:text-slate-500 (adjusted) */
+  --color-text-primary: rgb(248 250 252 / 1);           /* white */
+  --color-text-secondary: rgb(203 213 225 / 1);         /* slate-300 */
+  --color-text-muted: rgb(148 163 184 / 1);             /* slate-400 */
+
+  /* ACCENTS */
+  --color-accent-success: rgb(74 222 128 / 1);
+  --color-accent-warning: rgb(250 204 21 / 1);
+  --color-accent-error: rgb(248 113 113 / 1);
+
+  /* SHADOW SYSTEM */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-elevation: 0 25px 50px -12px rgb(0 0 0 / 0.4);
 }
 
 * {
@@ -59,20 +95,36 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top, rgba(0, 0, 0, 0.03), transparent 30%),
-    linear-gradient(to bottom, #f8fafc, #e2e8f0 45%, #f8fafc);
-  color: #0f172a;
+  background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(250, 251, 253) 100%);
+  color: var(--color-text-primary);
 }
 
 html.dark body {
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 30%),
-    linear-gradient(to bottom, #020617, #0f172a 45%, #020617);
-  color: #f8fafc;
+  background: linear-gradient(180deg, rgb(15, 23, 42) 0%, rgb(10, 15, 30) 100%);
+  color: var(--color-text-primary);
 }
 
+/* Premium selection styling */
 ::selection {
-  background: rgba(239, 68, 68, 0.3);
+  background: var(--color-brand-primary);
   color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
 }
