@@ -15,9 +15,9 @@ export default function PageHeader({
   return (
     <section className={sectionPatterns.header()}>
       <Container>
-        <div className="max-w-3xl space-y-4">
+        <div className="max-w-4xl space-y-6">
           {eyebrow ? (
-            <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+            <p className={textTokens.meta}>
               {eyebrow}
             </p>
           ) : null}
@@ -27,7 +27,7 @@ export default function PageHeader({
           </h1>
 
           {description ? (
-            <p className={textTokens.body}>
+            <p className={`${textTokens.bodyLarge} text-text-secondary max-w-2xl`}>
               {description}
             </p>
           ) : null}

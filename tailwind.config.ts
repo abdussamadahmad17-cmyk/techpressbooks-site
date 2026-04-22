@@ -9,7 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Semantic surface colors (replaces magic bg-white/70 dark:bg-white/5)
+        // Brand colors
+        'brand-primary': 'var(--color-brand-primary)',
+        'brand-light': 'var(--color-brand-light)',
+
+        // Semantic surface colors
         'surface-default': 'var(--color-surface-default)',
         'surface-strong': 'var(--color-surface-strong)',
         'surface-soft': 'var(--color-surface-soft)',
@@ -17,11 +21,29 @@ const config: Config = {
 
         // Semantic border colors
         'border-default': 'var(--color-border-default)',
+        'border-subtle': 'var(--color-border-subtle)',
+        'border-accent': 'var(--color-border-accent)',
 
         // Semantic text colors
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
         'text-muted': 'var(--color-text-muted)',
+
+        // Accent colors
+        'accent-success': 'var(--color-accent-success)',
+        'accent-warning': 'var(--color-accent-warning)',
+        'accent-error': 'var(--color-accent-error)',
+      },
+      boxShadow: {
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+        'xl': 'var(--shadow-xl)',
+        'elevation': 'var(--shadow-elevation)',
+      },
+      borderRadius: {
+        'premium': '1.5rem',
+        'lg-premium': '1.75rem',
       },
     },
   },

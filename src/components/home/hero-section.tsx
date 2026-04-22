@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
 import { event } from "@/lib/analytics/gtag"
+import { textTokens, ctaPatterns } from "@/lib/theme-tokens"
 
 interface HeroSectionProps {
   siteDescription: string
@@ -31,42 +32,45 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
   }, []);
 
   return (
-    <section className="relative py-24 overflow-hidden border-b border-white/10 sm:py-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,0.10),transparent_25%),radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_30%)]" />
-
+    <section className="relative py-32 overflow-hidden border-b border-border-default sm:py-40 lg:py-48">
       <Container className="relative">
-        <div className="max-w-3xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em]">
-            Premium Technical Publishing
+        <div className="max-w-4xl space-y-10">
+          {/* Premium badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-premium border border-border-subtle bg-surface-soft">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-primary" />
+            <span className="text-xs font-semibold tracking-widest text-text-primary uppercase">
+              Premium Technical Publishing
+            </span>
           </div>
 
+          {/* Hero headline */}
           <div className="space-y-6">
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+            <h1 className={`${textTokens.heroTitle}`}>
               Engineering knowledge for the real world.
             </h1>
 
-            <p className="max-w-2xl text-lg leading-8 sm:text-xl">
+            <p className="max-w-3xl text-lg leading-relaxed text-text-secondary sm:text-xl">
               {siteDescription}
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              href={primaryCta.href} 
-              variant="primary" 
-              size="lg"
+          {/* CTA buttons */}
+          <div className="flex flex-wrap gap-4 pt-4">
+            <a
+              href={primaryCta.href}
+              className={ctaPatterns.primary()}
               onClick={handlePrimaryCta}
             >
               {primaryCta.label}
-            </Button>
-            <Button 
-              href="/blog" 
-              variant="secondary" 
-              size="lg"
+              <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="/blog"
+              className={ctaPatterns.secondary()}
               onClick={handleBlogCta}
             >
               Read the blog
-            </Button>
+            </a>
           </div>
         </div>
       </Container>

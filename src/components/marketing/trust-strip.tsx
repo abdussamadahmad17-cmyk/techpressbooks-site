@@ -1,8 +1,10 @@
 import Container from "@/components/layout/container"
+import { cardPatterns, textTokens } from "@/lib/theme-tokens"
 
 interface TrustStripItem {
   title: string
   description: string
+  icon?: React.ReactNode
 }
 
 interface TrustStripProps {
@@ -11,19 +13,34 @@ interface TrustStripProps {
 
 export default function TrustStrip({ items }: TrustStripProps) {
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-24 sm:py-32 border-b border-border-default">
       <Container>
+        <div className="space-y-4 mb-16">
+          <h2 className={textTokens.h2}>
+            Why TechPressBooks
+          </h2>
+          <p className="max-w-3xl text-text-secondary text-lg">
+            Premium technical publishing built on these principles.
+          </p>
+        </div>
+
         <div className="grid gap-6 md:grid-cols-3">
           {items.map((item) => (
             <div
               key={item.title}
-              className="p-8 border rounded-3xl border-slate-200 bg-white/20 backdrop-blur dark:border-white/10 dark:bg-white/5"
+              className={cardPatterns.elevated()}
             >
-              <h3 className="text-xl font-semibold">
+              {item.icon && (
+                <div className="mb-4 text-brand-primary text-3xl">
+                  {item.icon}
+                </div>
+              )}
+
+              <h3 className={`${textTokens.h4} mb-2`}>
                 {item.title}
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">
+              <p className={`${textTokens.sm} text-text-secondary`}>
                 {item.description}
               </p>
             </div>

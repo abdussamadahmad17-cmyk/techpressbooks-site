@@ -87,19 +87,21 @@ export default async function BookDetailPage({ params }: Props) {
       <BookHero book={book} />
 
       {book.description ? (
-        <section className="pb-20">
+        <section className="py-24 sm:py-32 border-b border-border-default">
           <Container>
             <div className="max-w-3xl space-y-8">
-              <div className="space-y-3">
-                <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+              <div className="space-y-4">
+                <p className="text-xs font-semibold tracking-widest text-brand-primary uppercase">
                   About this book
                 </p>
-                <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary">
                   A deeper look
                 </h2>
               </div>
 
-              <PortableTextRenderer value={book.description} />
+              <div className="prose prose-invert max-w-3xl">
+                <PortableTextRenderer value={book.description} />
+              </div>
             </div>
           </Container>
         </section>

@@ -9,6 +9,7 @@ import { getFeaturedBooks } from "@/features/books/service"
 import { getSiteSettings } from "@/features/site-settings/service"
 import { getAllPosts } from "@/features/posts/service"
 import PostGrid from "@/components/blog/post-grid"
+import { textTokens, ctaPatterns } from "@/lib/theme-tokens"
 
 export default async function HomePage() {
   const [featuredBooks, siteSettings, posts] = await Promise.all([
@@ -52,23 +53,28 @@ export default async function HomePage() {
         ]}
       />
 
-      <section className="py-20 sm:py-24">
+      <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
         <Container>
-          <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
-            <div className="space-y-3">
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-                Featured Titles
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                Start with the flagship books
-              </h2>
-            </div>
+          <div className="space-y-4 mb-16 max-w-3xl">
+            <p className={`${textTokens.meta}`}>
+              Featured Titles
+            </p>
+            <h2 className={textTokens.h2}>
+              Start with the flagship books
+            </h2>
+            <p className={`${textTokens.bodyLarge} text-text-secondary`}>
+              Hand-picked, production-focused technical guides that go beyond tutorials.
+            </p>
+          </div>
 
+          <div className="flex items-end justify-between mb-12">
+            <div />
             <Link
               href="/books"
-              className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+              className={ctaPatterns.ghost()}
             >
-              View all books →
+              View all books
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
 
@@ -79,23 +85,28 @@ export default async function HomePage() {
       {featuredBook ? <FeaturedBookCta book={featuredBook} /> : null}
 
       {latestPosts.length > 0 ? (
-        <section className="py-20 sm:py-24">
+        <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
           <Container>
-            <div className="flex flex-col gap-4 mb-12 sm:flex-row sm:items-end sm:justify-between">
-              <div className="space-y-3">
-                <p className="text-sm uppercase tracking-[0.2em] text-red-400">
-                  Latest Articles
-                </p>
-                <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                  Learn through practical technical writing
-                </h2>
-              </div>
+            <div className="space-y-4 mb-16 max-w-3xl">
+              <p className={`${textTokens.meta}`}>
+                Latest Articles
+              </p>
+              <h2 className={textTokens.h2}>
+                Learn through practical technical writing
+              </h2>
+              <p className={`${textTokens.bodyLarge} text-text-secondary`}>
+                In-depth explorations and practical guides from industry professionals.
+              </p>
+            </div>
 
+            <div className="flex items-end justify-between mb-12">
+              <div />
               <Link
                 href="/blog"
-                className="text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                className={ctaPatterns.ghost()}
               >
-                Visit the blog →
+                Visit the blog
+                <span aria-hidden="true">→</span>
               </Link>
             </div>
 

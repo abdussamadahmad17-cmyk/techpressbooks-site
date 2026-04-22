@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import Button from "@/components/shared/button"
 import Container from "@/components/layout/container"
 import { event } from "@/lib/analytics/gtag"
-import { surfaceTokens, sectionPatterns, textTokens } from "@/lib/theme-tokens"
+import { cardPatterns, sectionPatterns, textTokens } from "@/lib/theme-tokens"
 
 interface SectionCtaProps {
   eyebrow?: string
@@ -46,10 +46,10 @@ export default function SectionCta({
   return (
     <section className={sectionPatterns.cta()}>
       <Container>
-        <div className={`${surfaceTokens.glass} px-8 py-12 rounded-[2rem] sm:px-12`}>
-          <div className="max-w-3xl space-y-5">
+        <div className={`${cardPatterns.elevated()} px-8 py-16 rounded-lg-premium sm:px-12 lg:px-16`}>
+          <div className="max-w-3xl space-y-8">
             {eyebrow ? (
-              <p className="text-sm uppercase tracking-[0.2em] text-red-400">
+              <p className={textTokens.meta}>
                 {eyebrow}
               </p>
             ) : null}
@@ -58,29 +58,28 @@ export default function SectionCta({
               {title}
             </h2>
 
-            <p className={textTokens.body}>
+            <p className={`${textTokens.bodyLarge} text-text-secondary max-w-2xl`}>
               {description}
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button 
+            <div className="flex flex-wrap gap-4 pt-6">
+              <a 
                 href={primaryAction.href} 
-                variant="primary" 
-                size="lg"
+                className="inline-flex rounded-lg-premium bg-brand-primary text-white text-base font-semibold px-7 py-4 transition hover:shadow-lg hover:bg-opacity-90"
                 onClick={handlePrimaryClick}
               >
                 {primaryAction.label}
-              </Button>
+                <span aria-hidden="true">→</span>
+              </a>
 
               {secondaryAction ? (
-                <Button 
+                <a 
                   href={secondaryAction.href} 
-                  variant="secondary" 
-                  size="lg"
+                  className="inline-flex rounded-lg-premium border-2 border-brand-primary text-brand-primary text-base font-semibold px-7 py-4 transition hover:bg-brand-primary hover:text-white"
                   onClick={handleSecondaryClick}
                 >
                   {secondaryAction.label}
-                </Button>
+                </a>
               ) : null}
             </div>
           </div>
