@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { BookOpen, Pen, ArrowRight } from "lucide-react"
 import Container from "@/components/layout/container"
 import BookGrid from "@/components/books/book-grid"
 import HeroSection from "@/components/home/hero-section"
@@ -55,15 +56,18 @@ export default async function HomePage() {
 
       <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
         <Container>
-          <div className="space-y-4 mb-16 max-w-3xl">
-            <p className={`${textTokens.meta}`}>
-              Featured Titles
-            </p>
+          <div className="space-y-4 mb-20 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-premium bg-brand-primary/10">
+              <BookOpen className="w-4 h-4 text-brand-primary" />
+              <p className={`${textTokens.xs} text-brand-primary font-semibold`}>
+                Featured Titles
+              </p>
+            </div>
             <h2 className={textTokens.h2}>
               Start with the flagship books
             </h2>
-            <p className={`${textTokens.bodyLarge} text-text-secondary`}>
-              Hand-picked, production-focused technical guides that go beyond tutorials.
+            <p className={`${textTokens.bodyLarge} text-text-secondary leading-relaxed`}>
+              Hand-picked, production-focused technical guides that go beyond tutorials. Each book is curated for engineers building real systems.
             </p>
           </div>
 
@@ -71,10 +75,10 @@ export default async function HomePage() {
             <div />
             <Link
               href="/books"
-              className={ctaPatterns.ghost()}
+              className="inline-flex items-center gap-2 text-brand-primary hover:text-brand-light transition font-semibold group"
             >
               View all books
-              <span aria-hidden="true">→</span>
+              <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -87,15 +91,18 @@ export default async function HomePage() {
       {latestPosts.length > 0 ? (
         <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
           <Container>
-            <div className="space-y-4 mb-16 max-w-3xl">
-              <p className={`${textTokens.meta}`}>
-                Latest Articles
-              </p>
+            <div className="space-y-4 mb-20 max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-premium bg-brand-primary/10">
+                <Pen className="w-4 h-4 text-brand-primary" />
+                <p className={`${textTokens.xs} text-brand-primary font-semibold`}>
+                  Latest Articles
+                </p>
+              </div>
               <h2 className={textTokens.h2}>
                 Learn through practical technical writing
               </h2>
-              <p className={`${textTokens.bodyLarge} text-text-secondary`}>
-                In-depth explorations and practical guides from industry professionals.
+              <p className={`${textTokens.bodyLarge} text-text-secondary leading-relaxed`}>
+                In-depth explorations and practical guides from industry professionals. Real-world insights you can apply immediately.
               </p>
             </div>
 
@@ -103,10 +110,10 @@ export default async function HomePage() {
               <div />
               <Link
                 href="/blog"
-                className={ctaPatterns.ghost()}
+                className="inline-flex items-center gap-2 text-brand-primary hover:text-brand-light transition font-semibold group"
               >
                 Visit the blog
-                <span aria-hidden="true">→</span>
+                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
               </Link>
             </div>
 

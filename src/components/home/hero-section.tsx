@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
 import { event } from "@/lib/analytics/gtag"
@@ -34,17 +35,17 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
   return (
     <section className="relative py-32 overflow-hidden border-b border-border-default sm:py-40 lg:py-48">
       <Container className="relative">
-        <div className="max-w-4xl space-y-10">
-          {/* Premium badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-premium border border-border-subtle bg-surface-soft">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-primary" />
-            <span className="text-xs font-semibold tracking-widest text-text-primary uppercase">
+        <div className="max-w-4xl space-y-12">
+          {/* Premium badge with enhanced styling */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-premium border border-brand-primary/30 bg-gradient-to-r from-brand-primary/10 to-brand-primary/5 shadow-sm">
+            <Sparkles className="w-4 h-4 text-brand-primary" />
+            <span className="text-xs font-semibold tracking-widest text-brand-primary uppercase">
               Premium Technical Publishing
             </span>
           </div>
 
-          {/* Hero headline */}
-          <div className="space-y-6">
+          {/* Hero headline with improved spacing */}
+          <div className="space-y-8">
             <h1 className={`${textTokens.heroTitle}`}>
               Engineering knowledge for the real world.
             </h1>
@@ -54,22 +55,23 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
             </p>
           </div>
 
-          {/* CTA buttons */}
-          <div className="flex flex-wrap gap-4 pt-4">
+          {/* Enhanced CTA buttons with icons */}
+          <div className="flex flex-wrap gap-4 pt-6">
             <a
               href={primaryCta.href}
-              className={ctaPatterns.primary()}
+              className={`${ctaPatterns.primary()} inline-flex items-center gap-2 group`}
               onClick={handlePrimaryCta}
             >
               {primaryCta.label}
-              <span aria-hidden="true">→</span>
+              <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
             </a>
             <a
               href="/blog"
-              className={ctaPatterns.secondary()}
+              className={`${ctaPatterns.secondary()} inline-flex items-center gap-2`}
               onClick={handleBlogCta}
             >
               Read the blog
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>

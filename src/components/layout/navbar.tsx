@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import { Home, BookOpen, PenTool, FolderOpen, Users, Menu, X } from "lucide-react"
 import Container from "@/components/layout/container"
 import Button from "@/components/shared/button"
 import ThemeToggle from "@/components/shared/theme-toggle"
@@ -11,6 +12,14 @@ import type { SiteSettings } from "@/types/site-settings"
 
 interface NavbarProps {
   siteSettings: SiteSettings
+}
+
+const iconMap: Record<string, React.ReactNode> = {
+  "/": <Home className="w-4 h-4" />,
+  "/books": <BookOpen className="w-4 h-4" />,
+  "/blog": <PenTool className="w-4 h-4" />,
+  "/categories": <FolderOpen className="w-4 h-4" />,
+  "/authors": <Users className="w-4 h-4" />
 }
 
 const headerFallbackNavigation = [
@@ -50,22 +59,24 @@ export default function Navbar({ siteSettings }: NavbarProps) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-1 lg:flex">
           {navigation.map((item) => {
             const active = isActive(item.href)
+            const icon = iconMap[item.href]
 
             return (
               <Link
                 key={`${item.label}-${item.href}`}
                 href={item.href}
                 className={cn(
-                  "text-sm font-semibold transition relative pb-1",
+                  "inline-flex items-center gap-2 px-3 py-2 rounded-premium text-sm font-semibold transition",
                   active 
-                    ? "text-text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-brand-primary" 
-                    : "text-text-secondary hover:text-text-primary"
+                    ? "text-brand-primary bg-brand-primary/10" 
+                    : "text-text-secondary hover:text-text-primary hover:bg-surface-soft"
                 )}
                 aria-current={active ? "page" : undefined}
               >
+                {icon && <span className="w-4 h-4 flex items-center justify-center">{icon}</span>}
                 {item.label}
               </Link>
             )
@@ -85,20 +96,25 @@ export default function Navbar({ siteSettings }: NavbarProps) {
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex items-center rounded-premium border border-border-default px-3 py-2 text-sm font-semibold text-text-secondary hover:text-text-primary transition lg:hidden"
+          className="inline-flex items-center gap-2 rounded-premium border border-border-default px-3 py-2 text-text-secondary hover:text-text-primary transition lg:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
         >
-          Menu
+          {isOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
         </button>
       </Container>
 
       {isOpen ? (
-        <div className="border-t border-border-default lg:hidden">
-          <Container className="py-4">
-            <nav className="flex flex-col gap-1">
+        <div className="border-t border-border-default bg-gradient-to-b from-surface-default to-surface-soft lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <Container className="py-6">
+            <nav className="flex flex-col gap-2">
               {navigation.map((item) => {
                 const active = isActive(item.href)
+                const icon = iconMap[item.href]
 
                 return (
                   <Link
@@ -106,24 +122,27 @@ export default function Navbar({ siteSettings }: NavbarProps) {
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "rounded-premium px-4 py-2.5 text-sm font-semibold transition",
+                      "inline-flex items-center gap-3 rounded-premium px-4 py-3 text-sm font-semibold transition",
                       active
-                        ? "bg-surface-soft text-text-primary"
-                        : "text-text-secondary hover:bg-surface-soft hover:text-text-primary"
+                        ? "bg-brand-primary/10 text-brand-primary"
+                        : "text-text-secondary hover:bg-surface-strong hover:text-text-primary"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
-                    {item.label}
+                    {icon && <span className="w-4 h-4 flex items-center justify-center">{icon}</span>}
+                    <span>{item.label}</span>
                   </Link>
                 )
               })}
 
-              <div className="mt-6 flex flex-col gap-3 border-t border-border-subtle pt-4">
-                <ThemeToggle />
-                <Button href="/become-an-author" variant="secondary" size="sm">
-                  Contribute
+              <div className="mt-8 flex flex-col gap-3 border-t border-border-subtle pt-6 space-y-3">
+                <div className="py-2">
+                  <ThemeToggle />
+                </div>
+                <Button href="/become-an-author" variant="secondary" size="sm" className="w-full justify-center">
+                  Become a Contributor
                 </Button>
-                <Button href="/books" variant="primary" size="sm">
+                <Button href="/books" variant="primary" size="sm" className="w-full justify-center">
                   Explore Books
                 </Button>
               </div>

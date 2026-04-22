@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Calendar, Award, BookMarked } from "lucide-react"
 import type { Book } from "@/types/book"
 import Container from "@/components/layout/container"
 import BuyButton from "@/components/books/buy-button"
@@ -15,17 +16,23 @@ export default function BookHero({ book }: BookHeroProps) {
     <section className={`${sectionPatterns.header()} border-b border-border-default`}>
       <Container>
         <div className="grid gap-12 lg:grid-cols-[420px_minmax(0,1fr)] lg:items-start lg:gap-16">
-          {/* Book Cover - Enlarged for prominence */}
+          {/* Book Cover - Elevated for prominence */}
           <div className="flex flex-col gap-6">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium border border-border-default bg-surface-soft shadow-elevation">
-              <Image
-                src={book.coverImage}
-                alt={book.title}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 420px"
-                className="object-cover"
-              />
+            <div className="relative">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium border border-border-default bg-surface-soft shadow-2xl">
+                <Image
+                  src={book.coverImage}
+                  alt={book.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 420px"
+                  className="object-cover"
+                />
+                {/* Highlight ring */}
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-lg-premium pointer-events-none" />
+              </div>
+              {/* Decorative accent */}
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-tr from-brand-primary/20 to-transparent rounded-full blur-2xl -z-10" />
             </div>
           </div>
 
@@ -97,20 +104,38 @@ export default function BookHero({ book }: BookHeroProps) {
               </div>
             ) : null}
 
-            {/* CTA and Metadata */}
-            <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-border-subtle">
-              <BuyButton href={book.amazonUrl} />
-
-              <div className="space-y-1">
-                {book.isbn ? (
-                  <p className={textTokens.meta}>ISBN</p>
-                ) : null}
-                {book.isbn ? (
-                  <p className={textTokens.sm}>
+            {/* Trust Signals & Metadata */}
+            <div className="grid grid-cols-2 gap-4 py-6 border-y border-border-subtle">
+              {book.publishedAt && (
+                <div className="space-y-1.5">
+                  <p className={`${textTokens.xs} text-text-muted flex items-center gap-1.5`}>
+                    <Calendar className="w-4 h-4" />
+                    Published
+                  </p>
+                  <p className={`${textTokens.sm} font-semibold`}>
+                    {new Date(book.publishedAt).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long' 
+                    })}
+                  </p>
+                </div>
+              )}
+              {book.isbn && (
+                <div className="space-y-1.5">
+                  <p className={`${textTokens.xs} text-text-muted flex items-center gap-1.5`}>
+                    <BookMarked className="w-4 h-4" />
+                    ISBN
+                  </p>
+                  <p className={`${textTokens.sm} font-semibold`}>
                     {book.isbn}
                   </p>
-                ) : null}
-              </div>
+                </div>
+              )}
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-2">
+              <BuyButton href={book.amazonUrl} />
             </div>
           </div>
         </div>
