@@ -40,11 +40,12 @@ export default function FeaturedBookCta({
 
   return (
     <section className="py-24 sm:py-32 lg:py-40 border-b border-border-default">
+      {/* Shadow borders applied via theme tokens */}
       <Container>
         <div className={`grid gap-12 ${cardPatterns.elevated()} lg:grid-cols-[300px_minmax(0,1fr)] lg:items-center lg:gap-16 bg-gradient-to-br from-brand-primary/5 to-transparent`}>
           {/* Book Cover with Enhanced Styling */}
           <div className="relative">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium border border-border-default bg-surface-soft shadow-2xl">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium bg-surface-soft shadow-2xl">
               <Image
                 src={book.coverImage}
                 alt={book.title}
@@ -75,7 +76,7 @@ export default function FeaturedBookCta({
             </div>
 
             {/* Book Preview Card */}
-            <div className="rounded-lg-premium border border-border-default bg-surface-strong p-8 space-y-6">
+            <div className="rounded-lg-premium shadow-md bg-surface-strong p-8 space-y-6">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-premium bg-brand-primary/10 text-brand-primary text-xs font-semibold">

@@ -14,12 +14,13 @@ interface BookHeroProps {
 export default function BookHero({ book }: BookHeroProps) {
   return (
     <section className={`${sectionPatterns.header()} border-b border-border-default`}>
+      {/* Updated via shadow system */}
       <Container>
         <div className="grid gap-12 lg:grid-cols-[420px_minmax(0,1fr)] lg:items-start lg:gap-16">
           {/* Book Cover - Elevated for prominence */}
           <div className="flex flex-col gap-6">
             <div className="relative">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium border border-border-default bg-surface-soft shadow-2xl">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg-premium bg-surface-soft shadow-2xl">
                 <Image
                   src={book.coverImage}
                   alt={book.title}
@@ -44,7 +45,7 @@ export default function BookHero({ book }: BookHeroProps) {
                 {book.categories.map((category) => (
                   <span
                     key={category}
-                    className="inline-block px-3 py-1.5 rounded-premium border border-border-accent bg-surface-soft text-xs font-semibold tracking-widest text-brand-primary uppercase"
+                    className="inline-block px-3 py-1.5 rounded-premium shadow-sm bg-brand-primary/10 text-xs font-semibold tracking-widest text-brand-primary uppercase"
                   >
                     {category}
                   </span>
@@ -95,7 +96,7 @@ export default function BookHero({ book }: BookHeroProps) {
                     <Link
                       key={tag}
                       href={`/tags/${slugifyBookTag(tag)}`}
-                      className="rounded-premium border border-border-subtle bg-surface-soft px-4 py-2 text-sm text-text-secondary transition hover:border-border-accent hover:bg-surface-strong"
+                      className="rounded-premium shadow-sm bg-surface-soft px-4 py-2 text-sm text-text-secondary transition hover:shadow-md hover:bg-surface-strong"
                     >
                       {tag}
                     </Link>

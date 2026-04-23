@@ -26,7 +26,7 @@ export default function BookCard({ book }: BookCardProps) {
         {/* Cover Image */}
         <Link
           href={`/books/${book.slug}`}
-          className="relative aspect-[3/4] overflow-hidden rounded-premium bg-surface-soft border border-border-subtle"
+          className="relative aspect-[3/4] overflow-hidden rounded-premium bg-surface-soft shadow-md"
         >
           <Image
             src={book.coverImage}

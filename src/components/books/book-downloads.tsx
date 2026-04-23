@@ -33,7 +33,7 @@ export default function BookDownloads({ downloads }: BookDownloadsProps) {
                   </h3>
 
                   {item.version ? (
-                    <span className="rounded-premium border border-border-subtle bg-surface-soft px-3 py-1 text-xs font-semibold text-text-muted">
+                    <span className="rounded-premium shadow-sm bg-surface-soft px-3 py-1 text-xs font-semibold text-text-muted">
                       v{item.version}
                     </span>
                   ) : null}

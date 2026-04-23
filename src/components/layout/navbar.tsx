@@ -96,7 +96,7 @@ export default function Navbar({ siteSettings }: NavbarProps) {
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex items-center gap-2 rounded-premium border border-border-default px-3 py-2 text-text-secondary hover:text-text-primary transition lg:hidden"
+          className="inline-flex items-center gap-2 rounded-premium shadow-sm px-3 py-2 text-text-secondary hover:text-text-primary transition lg:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
         >

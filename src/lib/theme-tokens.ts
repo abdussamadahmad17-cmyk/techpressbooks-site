@@ -18,11 +18,11 @@
 export const surfaceTokens = {
   /** Default surface (cards, backgrounds) */
   default:
-    'border border-border-default bg-surface-default',
+    'shadow-sm bg-surface-default',
 
   /** Strong surface (emphasized containers, sections) */
   strong:
-    'border border-slate-200 bg-surface-strong',
+    'shadow-sm bg-surface-strong',
 
   /** Soft surface (secondary backgrounds) */
   soft:
@@ -30,7 +30,7 @@ export const surfaceTokens = {
 
   /** Glass effect (frosted/overlay containers) */
   glass:
-    'border border-border-default bg-surface-overlay backdrop-blur',
+    'shadow-md bg-surface-overlay backdrop-blur',
 }
 
 /**
@@ -42,43 +42,39 @@ export const cardPatterns = {
   /** Standard card: clean, minimal with subtle lift on hover */
   default: () => [
     'rounded-lg-premium',
-    'border',
     'bg-surface-default',
-    'border-border-default',
     'p-6',
+    'shadow-sm',
     'transition duration-300',
     'hover:shadow-md',
-    'hover:border-border-accent',
   ].join(' '),
 
   /** Elevated card: more prominent with stronger shadow */
   elevated: () => [
     'rounded-lg-premium',
     'bg-surface-default',
-    'border border-border-default',
     'p-6',
     'shadow-md',
     'transition duration-300',
     'hover:shadow-lg',
   ].join(' '),
 
-  /** Strong/emphasis card: white background with subtle border */
+  /** Strong/emphasis card: white background with subtle shadow */
   strong: () => [
     'rounded-lg-premium',
-    'border',
     'bg-surface-strong',
-    'border-border-default',
     'p-6',
+    'shadow-sm',
     'transition duration-300',
+    'hover:shadow-md',
   ].join(' '),
 
   /** Glass effect: frosted appearance */
   glass: () => [
     'rounded-lg-premium',
-    'border',
     'bg-surface-overlay',
-    'border-border-default',
     'p-6',
+    'shadow-md',
     'backdrop-blur-sm',
   ].join(' '),
 }
