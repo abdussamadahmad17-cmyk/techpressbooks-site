@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, Award, BookMarked } from "lucide-react"
+import { BookMarked } from "lucide-react"
 import type { Book } from "@/types/book"
 import Container from "@/components/layout/container"
 import BuyButton from "@/components/books/buy-button"
@@ -105,33 +105,17 @@ export default function BookHero({ book }: BookHeroProps) {
             ) : null}
 
             {/* Trust Signals & Metadata */}
-            <div className="grid grid-cols-2 gap-4 py-6 border-y border-border-subtle">
-              {book.publishedAt && (
-                <div className="space-y-1.5">
-                  <p className={`${textTokens.xs} text-text-muted flex items-center gap-1.5`}>
-                    <Calendar className="w-4 h-4" />
-                    Published
-                  </p>
-                  <p className={`${textTokens.sm} font-semibold`}>
-                    {new Date(book.publishedAt).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long' 
-                    })}
-                  </p>
-                </div>
-              )}
-              {book.isbn && (
-                <div className="space-y-1.5">
-                  <p className={`${textTokens.xs} text-text-muted flex items-center gap-1.5`}>
-                    <BookMarked className="w-4 h-4" />
-                    ISBN
-                  </p>
-                  <p className={`${textTokens.sm} font-semibold`}>
-                    {book.isbn}
-                  </p>
-                </div>
-              )}
-            </div>
+            {book.isbn && (
+              <div className="space-y-2 py-6 border-y border-border-subtle">
+                <p className={`${textTokens.xs} text-text-muted flex items-center gap-1.5`}>
+                  <BookMarked className="w-4 h-4" />
+                  ISBN
+                </p>
+                <p className={`${textTokens.sm} font-semibold`}>
+                  {book.isbn}
+                </p>
+              </div>
+            )}
 
             {/* CTA Button */}
             <div className="pt-2">
