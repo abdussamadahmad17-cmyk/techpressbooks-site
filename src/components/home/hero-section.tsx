@@ -37,7 +37,7 @@ export default function HeroSection({ siteDescription, primaryCta }: HeroSection
       <Container className="relative">
         <div className="max-w-4xl space-y-12">
           {/* Premium badge with enhanced styling */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-premium border border-brand-primary/30 bg-gradient-to-r from-brand-primary/10 to-brand-primary/5 shadow-sm">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-premium shadow-sm bg-gradient-to-r from-brand-primary/10 to-brand-primary/5">
             <Sparkles className="w-4 h-4 text-brand-primary" />
             <span className="text-xs font-semibold tracking-widest text-brand-primary uppercase">
               Premium Technical Publishing
